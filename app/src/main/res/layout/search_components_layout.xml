@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/search_title_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        android:text="@string/search_title"
+        app:layout_constraintBottom_toTopOf="@id/search_author_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/search_title_et"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/search_title_et"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/search_author_et"
+        app:layout_constraintLeft_toRightOf="@id/search_title_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/search_author_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        android:text="@string/search_author"
+        app:layout_constraintBottom_toTopOf="@id/search_inventory_number_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/search_author_et"
+        app:layout_constraintTop_toBottomOf="@id/search_title_tv"/>
+
+    <EditText
+        android:id="@+id/search_author_et"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/search_inventory_number_et"
+        app:layout_constraintLeft_toRightOf="@id/search_author_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_title_et"/>
+
+    <TextView
+        android:id="@+id/search_inventory_number_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        android:text="@string/search_inventory_number"
+        app:layout_constraintBottom_toTopOf="@id/search_main_signature_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/search_inventory_number_et"
+        app:layout_constraintTop_toBottomOf="@id/search_author_tv"/>
+
+    <EditText
+        android:id="@+id/search_inventory_number_et"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/search_main_signature_et"
+        app:layout_constraintLeft_toRightOf="@id/search_inventory_number_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_author_et"/>
+
+    <TextView
+        android:id="@+id/search_main_signature_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        android:text="@string/search_main_signature"
+        app:layout_constraintBottom_toTopOf="@id/search_year_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/search_main_signature_et"
+        app:layout_constraintTop_toBottomOf="@id/search_inventory_number_tv"/>
+
+    <EditText
+        android:id="@+id/search_main_signature_et"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/search_year_et"
+        app:layout_constraintLeft_toRightOf="@id/search_main_signature_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_inventory_number_et"/>
+
+    <TextView
+        android:id="@+id/search_year_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        android:text="@string/search_year"
+        app:layout_constraintBottom_toTopOf="@id/search_volume_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/search_year_et"
+        app:layout_constraintTop_toBottomOf="@id/search_main_signature_tv"/>
+
+    <EditText
+        android:id="@+id/search_year_et"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/search_volume_et"
+        app:layout_constraintLeft_toRightOf="@id/search_year_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_main_signature_et"/>
+
+    <TextView
+        android:id="@+id/search_volume_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        android:text="@string/search_volume"
+        app:layout_constraintBottom_toTopOf="@id/search_type_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/search_volume_et"
+        app:layout_constraintTop_toBottomOf="@id/search_year_tv"/>
+
+    <EditText
+        android:id="@+id/search_volume_et"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/search_type_et"
+        app:layout_constraintLeft_toRightOf="@id/search_volume_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_year_et"/>
+
+    <TextView
+        android:id="@+id/search_type_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        android:text="@string/search_type"
+        app:layout_constraintBottom_toTopOf="@id/search_category_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/search_type_et"
+        app:layout_constraintTop_toBottomOf="@id/search_volume_tv"/>
+
+    <EditText
+        android:id="@+id/search_type_et"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/search_category_et"
+        app:layout_constraintLeft_toRightOf="@id/search_type_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_volume_et"/>
+
+    <TextView
+        android:id="@+id/search_category_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        android:text="@string/search_category"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/search_category_et"
+        app:layout_constraintTop_toBottomOf="@id/search_type_tv"/>
+
+    <EditText
+        android:id="@+id/search_category_et"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintLeft_toRightOf="@id/search_category_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_type_et"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.library.proj.libraryapp.di.component;
 import com.library.proj.libraryapp.di.module.ActivityModule;
 import com.library.proj.libraryapp.di.module.MainModule;
 import com.library.proj.libraryapp.di.module.RemoteDataModule;
+import com.library.proj.libraryapp.di.module.SearchModule;
 import com.library.proj.libraryapp.di.scope.ActivityScope;
 
 import dagger.Component;
@@ -16,4 +17,5 @@ import dagger.Component;
 public interface ActivityComponent {
 
     MainComponent addModule(MainModule module);
+    SearchComponent addModule(SearchModule module);
 }

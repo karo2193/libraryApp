@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">LibraryApp</string>
+
+    <string name="search_find_book">Znajdź książkę</string>
+    <string name="search_title">Tytuł</string>
+    <string name="search_author">Autor</string>
+    <string name="search_inventory_number">Nr inwentarza</string>
+    <string name="search_main_signature">Sygnatura biblioteki głównej</string>
+    <string name="search_year">Rok wydania</string>
+    <string name="search_volume">Tom</string>
+    <string name="search_type">Typ pozycji</string>
+    <string name="search_category">Kategoria</string>
+    <string name="search_clear">Czyść</string>
+    <string name="search_search">Szukaj</string>
 </resources>
