@@ -1,3 +1,9 @@
 <resources>
 	<dimen name="search_component_height">150dp</dimen>
+	<dimen name="padding_small">15dp</dimen>
+	<dimen name="padding_default">30dp</dimen>
+	<dimen name="margin_default">30dp</dimen>
+	<dimen name="margin_small">15dp</dimen>
+	<dimen name="image_default_size">72dp</dimen>
+	<dimen name="subcategory_item_margin_left">90dp</dimen>
 </resources>

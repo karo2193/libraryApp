@@ -76,7 +76,7 @@
         android:id="@+id/search_main_signature_et"
         android:layout_width="0dp"
         android:layout_height="@dimen/search_component_height"
-        app:layout_constraintBottom_toTopOf="@id/search_year_et"
+        app:layout_constraintBottom_toTopOf="@id/search_year_spn"
         app:layout_constraintLeft_toRightOf="@id/search_main_signature_tv"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_inventory_number_et"/>
@@ -88,11 +88,11 @@
         android:text="@string/search_year"
         app:layout_constraintBottom_toTopOf="@id/search_volume_tv"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/search_year_et"
+        app:layout_constraintRight_toLeftOf="@id/search_year_spn"
         app:layout_constraintTop_toBottomOf="@id/search_main_signature_tv"/>
 
-    <EditText
-        android:id="@+id/search_year_et"
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/search_year_spn"
         android:layout_width="0dp"
         android:layout_height="@dimen/search_component_height"
         app:layout_constraintBottom_toTopOf="@id/search_volume_et"
@@ -114,10 +114,10 @@
         android:id="@+id/search_volume_et"
         android:layout_width="0dp"
         android:layout_height="@dimen/search_component_height"
-        app:layout_constraintBottom_toTopOf="@id/search_type_et"
+        app:layout_constraintBottom_toTopOf="@id/search_type_spn"
         app:layout_constraintLeft_toRightOf="@id/search_volume_tv"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_year_et"/>
+        app:layout_constraintTop_toBottomOf="@id/search_year_spn"/>
 
     <TextView
         android:id="@+id/search_type_tv"
@@ -126,14 +126,14 @@
         android:text="@string/search_type"
         app:layout_constraintBottom_toTopOf="@id/search_category_tv"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/search_type_et"
+        app:layout_constraintRight_toLeftOf="@id/search_type_spn"
         app:layout_constraintTop_toBottomOf="@id/search_volume_tv"/>
 
-    <EditText
-        android:id="@+id/search_type_et"
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/search_type_spn"
         android:layout_width="0dp"
         android:layout_height="@dimen/search_component_height"
-        app:layout_constraintBottom_toTopOf="@id/search_category_et"
+        app:layout_constraintBottom_toTopOf="@id/search_category_btn"
         app:layout_constraintLeft_toRightOf="@id/search_type_tv"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_volume_et"/>
@@ -144,15 +144,15 @@
         android:layout_height="@dimen/search_component_height"
         android:text="@string/search_category"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/search_category_et"
+        app:layout_constraintRight_toLeftOf="@id/search_category_btn"
         app:layout_constraintTop_toBottomOf="@id/search_type_tv"/>
 
-    <EditText
-        android:id="@+id/search_category_et"
+    <Button
+        android:id="@+id/search_category_btn"
         android:layout_width="0dp"
         android:layout_height="@dimen/search_component_height"
         app:layout_constraintLeft_toRightOf="@id/search_category_tv"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_type_et"/>
+        app:layout_constraintTop_toBottomOf="@id/search_type_spn"/>
 
 </android.support.constraint.ConstraintLayout>
