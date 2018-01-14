@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <dimen name="image_default_size">43.2dp</dimen>
-
-    <dimen name="margin_default">18dp</dimen>
-    <dimen name="margin_small">9dp</dimen>
-
-    <dimen name="padding_default">18dp</dimen>
-    <dimen name="padding_small">9dp</dimen>
-
-    <dimen name="search_component_height">90dp</dimen>
-
-    <dimen name="subcategory_item_margin_left">54dp</dimen>
+	<dimen name="image_default_size">43.2dp</dimen>
+	<dimen name="margin_default">18dp</dimen>
+	<dimen name="margin_small">9dp</dimen>
+	<dimen name="padding_default">18dp</dimen>
+	<dimen name="padding_small">9dp</dimen>
+	<dimen name="search_component_height">90dp</dimen>
+	<dimen name="subcategory_item_margin_left">54dp</dimen>
 </resources>

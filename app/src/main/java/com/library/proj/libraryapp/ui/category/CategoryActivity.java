@@ -55,6 +55,17 @@ public class CategoryActivity extends BaseActivity<CategoryContract.View, Catego
     @Override
     public void setupCategoriesLv() {
         CategoryAdapter adapter = new CategoryAdapter(categories);
+        setupOnCategoryClick(adapter);
+        setupOnCategoryCheckBoxClick(adapter);
+        categoryLv.setAdapter(adapter);
+    }
+
+    private void setupOnCategoryCheckBoxClick(CategoryAdapter adapter) {
+        adapter.getOnCategoryCheckBoxClick().subscribe(category
+                -> category.setChecked(!category.isChecked()));
+    }
+
+    private void setupOnCategoryClick(CategoryAdapter adapter) {
         adapter.getOnCategoryClick().subscribe(category -> {
             int clickedCategoryPosition = categories.indexOf(category);
             if (categoryLv.isGroupExpanded(clickedCategoryPosition)) {
@@ -63,8 +74,5 @@ public class CategoryActivity extends BaseActivity<CategoryContract.View, Catego
                 categoryLv.expandGroup(clickedCategoryPosition);
             }
         });
-        adapter.getOnCategoryCheckBoxClick().subscribe(category
-                -> category.setChecked(!category.isChecked()));
-        categoryLv.setAdapter(adapter);
     }
 }

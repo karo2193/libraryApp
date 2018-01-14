@@ -9,7 +9,13 @@
     <string name="search_year">Rok wydania</string>
     <string name="search_volume">Tom</string>
     <string name="search_type">Typ pozycji</string>
-    <string name="search_category">Kategoria</string>
+    <string name="search_category">Wybierz kategorię</string>
     <string name="search_clear">Czyść</string>
     <string name="search_search">Szukaj</string>
+    <string-array
+        name="book_types">
+        <item>Podręcznik</item>
+        <item>Zestaw ćwiczeń</item>
+        <item>Inny</item>
+    </string-array>
 </resources>

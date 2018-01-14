@@ -13,6 +13,6 @@ public interface SearchContract {
     }
 
     interface View extends BaseView {
-
+        void setupComponents();
     }
 }
