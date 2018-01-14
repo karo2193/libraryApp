@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <dimen name="image_default_size">24dp</dimen>
+
+    <dimen name="margin_default">10dp</dimen>
+    <dimen name="margin_small">5dp</dimen>
+
+    <dimen name="padding_default">10dp</dimen>
+    <dimen name="padding_small">5dp</dimen>
+
+    <dimen name="search_component_height">50dp</dimen>
+
+    <dimen name="subcategory_item_margin_left">30dp</dimen>
+</resources>
