@@ -1,5 +1,8 @@
 package com.library.proj.libraryapp.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,7 +12,13 @@ import java.util.List;
 
 public class Category implements Serializable {
 
+    @SerializedName("id_kategorii")
+    @Expose
+    private String categoryId;
+    @SerializedName("kategoria")
+    @Expose
     private String name;
+
     private boolean isChecked = false;
     private boolean isExpanded;
     private List<Category> subcategories;

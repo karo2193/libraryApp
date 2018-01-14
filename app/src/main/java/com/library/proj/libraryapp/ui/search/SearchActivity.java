@@ -14,6 +14,7 @@ import com.library.proj.libraryapp.R;
 import com.library.proj.libraryapp.di.component.ActivityComponent;
 import com.library.proj.libraryapp.di.module.SearchModule;
 import com.library.proj.libraryapp.ui.base.BaseActivity;
+import com.library.proj.libraryapp.ui.book.BookActivity;
 import com.library.proj.libraryapp.ui.category.CategoryActivity;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
 
     @OnClick(R.id.search_search_btn)
     public void onSearchClick() {
-
+        startActivity(new Intent(this, BookActivity.class));
     }
 
     @Override

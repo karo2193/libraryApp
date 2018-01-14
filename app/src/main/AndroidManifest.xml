@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.library.proj.libraryapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".application.LibraryApplication"
         android:allowBackup="true"
@@ -20,6 +22,7 @@
         <activity android:name=".ui.search.SearchActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.category.CategoryActivity"/>
+        <activity android:name=".ui.book.BookActivity"/>
     </application>
 
 </manifest>

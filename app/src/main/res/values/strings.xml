@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">LibraryApp</string>
 
+    <string name="books_error">Niestety pobranie książek nie powiodło się</string>
+
     <string name="search_find_book">Znajdź książkę</string>
     <string name="search_title">Tytuł</string>
     <string name="search_author">Autor</string>

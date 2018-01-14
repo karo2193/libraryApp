@@ -17,7 +17,7 @@ public class RxTransformerProvider {
     private final Scheduler observerOnScheduler;
 
     @Inject
-    public RxTransformerProvider(@Named("SubscriberOnScheduler") Scheduler subscriberOnScheduler,
+    public RxTransformerProvider(@Named("SubscribeOnScheduler") Scheduler subscriberOnScheduler,
                                  @Named("ObserveOnScheduler") Scheduler observerOnScheduler) {
         this.subscriberOnScheduler = subscriberOnScheduler;
         this.observerOnScheduler = observerOnScheduler;
