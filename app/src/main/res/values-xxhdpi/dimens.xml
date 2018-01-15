@@ -6,4 +6,7 @@
 	<dimen name="margin_small">12dp</dimen>
 	<dimen name="image_default_size">57.6dp</dimen>
 	<dimen name="subcategory_item_margin_left">72dp</dimen>
+	<dimen name="text_small_size">33.6sp</dimen>
+	<dimen name="text_medium_size">43.2sp</dimen>
+	<dimen name="text_large_size">52.8sp</dimen>
 </resources>

@@ -99,6 +99,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         setupComponents();
     }
 
@@ -125,7 +126,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                //default implementation ignored
+
             }
         };
     }

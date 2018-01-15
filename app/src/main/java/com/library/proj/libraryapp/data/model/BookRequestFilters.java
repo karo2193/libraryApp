@@ -41,7 +41,7 @@ public class BookRequestFilters implements Parcelable {
     private String availability;
 
     public BookRequestFilters() {
-
+        //default empty constructor
     }
 
     protected BookRequestFilters(Parcel in) {
