@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.library.proj.libraryapp.R;
+import com.library.proj.libraryapp.data.model.BookRequestFilters;
 import com.library.proj.libraryapp.di.component.ActivityComponent;
 import com.library.proj.libraryapp.di.module.SearchModule;
 import com.library.proj.libraryapp.ui.base.BaseActivity;
@@ -29,7 +30,7 @@ import butterknife.OnClick;
 public class SearchActivity extends BaseActivity<SearchContract.View, SearchPresenter>
         implements SearchContract.View {
 
-    private static final int THE_EARLIEST_YEAR = 1000;
+    public static final String BOOK_FILTERS_EXTRA = "bookFiltersExtra";
 
     @BindView(R.id.search_toolbar)
     Toolbar toolbar;
@@ -71,7 +72,10 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
 
     @OnClick(R.id.search_search_btn)
     public void onSearchClick() {
-        startActivity(new Intent(this, BookActivity.class));
+        BookRequestFilters bookRequestFilters = getBookRequestFilters();
+        Intent intent = new Intent(this, BookActivity.class);
+        intent.putExtra(BOOK_FILTERS_EXTRA, bookRequestFilters);
+        startActivity(intent);
     }
 
     @Override
@@ -134,5 +138,17 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         for (EditText editText : allEtFields) {
             editText.getText().clear();
         }
+    }
+
+    private BookRequestFilters getBookRequestFilters() {
+        BookRequestFilters bookRequestFilters = new BookRequestFilters();
+        bookRequestFilters.setTitle(searchTitleEt.getText().toString().trim());
+        bookRequestFilters.setResponsibility(searchAuthorEt.getText().toString().trim());
+        bookRequestFilters.setIsbnWithIssn(searchInventoryNumberEt.getText().toString().trim());
+        bookRequestFilters.setMainSignature(searchMainSignatureEt.getText().toString().trim());
+        bookRequestFilters.setYear(Integer.getInteger(searchYearEt.getText().toString().trim()));
+        bookRequestFilters.setVolume(searchVolumeEt.getText().toString().trim());
+        bookRequestFilters.setType(selectedType);
+        return bookRequestFilters;
     }
 }

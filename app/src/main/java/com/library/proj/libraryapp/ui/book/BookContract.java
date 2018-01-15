@@ -1,13 +1,13 @@
 package com.library.proj.libraryapp.ui.book;
 
+import android.os.Bundle;
+
 import com.library.proj.libraryapp.data.model.Book;
 import com.library.proj.libraryapp.data.model.BookRequestData;
 import com.library.proj.libraryapp.ui.base.BasePresenter;
 import com.library.proj.libraryapp.ui.base.BaseView;
 
 import java.util.List;
-
-import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Karo2 on 2017-12-31.

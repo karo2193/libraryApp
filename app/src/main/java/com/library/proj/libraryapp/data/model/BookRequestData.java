@@ -13,6 +13,10 @@ public class BookRequestData {
     @Expose
     private BookRequestQuery query;
 
+    public BookRequestData() {
+        query = new BookRequestQuery();
+    }
+
     public BookRequestQuery getQuery() {
         return query;
     }

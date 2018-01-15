@@ -1,5 +1,6 @@
 package com.library.proj.libraryapp.ui.book;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,11 +11,11 @@ import com.library.proj.libraryapp.data.model.Book;
 import com.library.proj.libraryapp.data.model.BookRequestData;
 import com.library.proj.libraryapp.data.model.BookRequestFilters;
 import com.library.proj.libraryapp.data.model.BookRequestPagination;
-import com.library.proj.libraryapp.data.model.BookRequestQuery;
 import com.library.proj.libraryapp.data.model.Category;
 import com.library.proj.libraryapp.di.component.ActivityComponent;
 import com.library.proj.libraryapp.di.module.BookModule;
 import com.library.proj.libraryapp.ui.base.BaseActivity;
+import com.library.proj.libraryapp.ui.search.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,16 +60,25 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     @Override
     public void createBookRequestData() {
         BookRequestData bookRequestData = new BookRequestData();
-        BookRequestQuery bookRequestQuery = new BookRequestQuery();
-        BookRequestFilters bookRequestFilters = new BookRequestFilters();
+        bookRequestData.getQuery().setFilters(getFilters(getIntent()));
+        bookRequestData.getQuery().setPagination(getPagination());
+        bookRequestData.getQuery().setCategories(new ArrayList<Category>());
+        getPresenter().getBooks(bookRequestData);
+    }
+
+    private BookRequestPagination getPagination() {
         BookRequestPagination bookRequestPagination = new BookRequestPagination();
         bookRequestPagination.setLimit(API_BOOKS_LIMIT);
         bookRequestPagination.setOffset(API_BOOKS_LIMIT * currentPage);
-        bookRequestQuery.setFilters(bookRequestFilters);
-        bookRequestQuery.setCategories(new ArrayList<Category>());
-        bookRequestQuery.setPagination(bookRequestPagination);
-        bookRequestData.setQuery(bookRequestQuery);
-        getPresenter().getBooks(bookRequestData);
+        return bookRequestPagination;
+    }
+
+    private BookRequestFilters getFilters(Intent intent) {
+        BookRequestFilters bookRequestFilters = new BookRequestFilters();
+        if (intent != null) {
+            bookRequestFilters = intent.getParcelableExtra(SearchActivity.BOOK_FILTERS_EXTRA);
+        }
+        return bookRequestFilters;
     }
 
     @Override
