@@ -1,6 +1,7 @@
 package com.library.proj.libraryapp.ui.category;
 
 import com.library.proj.libraryapp.data.model.Category;
+import com.library.proj.libraryapp.data.model.CategoryResponse;
 import com.library.proj.libraryapp.ui.base.BasePresenter;
 import com.library.proj.libraryapp.ui.base.BaseView;
 
@@ -17,6 +18,7 @@ public interface CategoryContract {
 
     interface View extends BaseView {
         void setupCategoriesLv();
-        void processCategories(List<Category> categories);
+        void processCategories(List<CategoryResponse> categoryResponses);
+        void onAllCategoriesError(Throwable throwable);
     }
 }

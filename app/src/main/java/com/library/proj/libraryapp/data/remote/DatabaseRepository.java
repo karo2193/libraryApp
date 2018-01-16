@@ -5,6 +5,8 @@ import android.content.Context;
 import com.library.proj.libraryapp.data.gateway.DatabaseGateway;
 import com.library.proj.libraryapp.data.model.Book;
 import com.library.proj.libraryapp.data.model.BookRequestData;
+import com.library.proj.libraryapp.data.model.Category;
+import com.library.proj.libraryapp.data.model.CategoryResponse;
 
 import java.util.List;
 
@@ -31,5 +33,11 @@ public class DatabaseRepository implements DatabaseGateway {
     public Observable<List<Book>> getBooks(BookRequestData bookRequestData) {
         return apiService
                 .getBooks(bookRequestData);
+    }
+
+    @Override
+    public Observable<List<CategoryResponse>> getAllCategories() {
+        return apiService
+                .getAllCategories();
     }
 }

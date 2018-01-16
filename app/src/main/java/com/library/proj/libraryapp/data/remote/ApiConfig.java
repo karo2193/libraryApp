@@ -12,4 +12,12 @@ public class ApiConfig {
     static class Book {
         final static String PATH = "ksiazka";
     }
+
+    static class Category {
+        final static String PATH = "kategorie";
+    }
+
+    static class Dictionary {
+        final static String PATH = "slownik";
+    }
 }

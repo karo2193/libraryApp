@@ -23,6 +23,12 @@ public class Category implements Serializable {
     private boolean isExpanded;
     private List<Category> subcategories;
 
+    public Category(String categoryId, String name, List<Category> subcategories) {
+        this.categoryId = categoryId;
+        this.name = name;
+        this.subcategories = subcategories;
+    }
+
     public Category(String name, List<Category> subcategories) {
         this.name = name;
         this.subcategories = subcategories;
@@ -50,5 +56,9 @@ public class Category implements Serializable {
 
     public List<Category> getSubcategories() {
         return subcategories;
+    }
+
+    public void setSubcategories(List<Category> subcategories) {
+        this.subcategories = subcategories;
     }
 }

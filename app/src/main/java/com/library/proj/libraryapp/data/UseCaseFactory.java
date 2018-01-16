@@ -2,6 +2,7 @@ package com.library.proj.libraryapp.data;
 
 import com.library.proj.libraryapp.data.gateway.DatabaseGateway;
 import com.library.proj.libraryapp.data.model.BookRequestData;
+import com.library.proj.libraryapp.data.usecase.GetAllCategoriesUseCase;
 import com.library.proj.libraryapp.data.usecase.GetBooksUseCase;
 import com.library.proj.libraryapp.data.utils.RxTransformerProvider;
 
@@ -27,5 +28,9 @@ public class UseCaseFactory {
 
     public GetBooksUseCase getBooksUseCase(BookRequestData bookRequestData) {
         return new GetBooksUseCase(rxTransformerProvider, databaseGateway, bookRequestData);
+    }
+
+    public GetAllCategoriesUseCase getAllCategoriesUseCase() {
+        return new GetAllCategoriesUseCase(rxTransformerProvider, databaseGateway);
     }
 }
