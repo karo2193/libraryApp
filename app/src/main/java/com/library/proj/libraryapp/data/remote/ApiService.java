@@ -2,12 +2,13 @@ package com.library.proj.libraryapp.data.remote;
 
 import com.library.proj.libraryapp.data.model.Book;
 import com.library.proj.libraryapp.data.model.BookRequestData;
-import com.library.proj.libraryapp.data.model.Category;
 import com.library.proj.libraryapp.data.model.CategoryResponse;
+import com.library.proj.libraryapp.data.model.Dictionary;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -23,4 +24,7 @@ public interface ApiService {
 
     @GET(ApiConfig.Category.PATH)
     Observable<List<CategoryResponse>> getAllCategories();
+
+    @GET(ApiConfig.Dictionary.PATH)
+    Single<Dictionary> getDictionary();
 }

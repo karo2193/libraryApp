@@ -4,6 +4,7 @@ import com.library.proj.libraryapp.data.gateway.DatabaseGateway;
 import com.library.proj.libraryapp.data.model.BookRequestData;
 import com.library.proj.libraryapp.data.usecase.GetAllCategoriesUseCase;
 import com.library.proj.libraryapp.data.usecase.GetBooksUseCase;
+import com.library.proj.libraryapp.data.usecase.GetDictionaryUseCase;
 import com.library.proj.libraryapp.data.utils.RxTransformerProvider;
 
 import javax.inject.Inject;
@@ -32,5 +33,9 @@ public class UseCaseFactory {
 
     public GetAllCategoriesUseCase getAllCategoriesUseCase() {
         return new GetAllCategoriesUseCase(rxTransformerProvider, databaseGateway);
+    }
+
+    public GetDictionaryUseCase getDictionaryUseCase() {
+        return new GetDictionaryUseCase(rxTransformerProvider, databaseGateway);
     }
 }

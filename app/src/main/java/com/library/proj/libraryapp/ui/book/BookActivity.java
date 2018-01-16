@@ -83,7 +83,7 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
 
     @Override
     public void setupBooksRv(List<Book> books) {
-        bookRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        bookRv.setLayoutManager(new LinearLayoutManager(this));
         BookAdapter bookAdapter = new BookAdapter(books);
         bookRv.setAdapter(bookAdapter);
     }

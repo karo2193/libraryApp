@@ -9,9 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.library.proj.libraryapp.R;
 import com.library.proj.libraryapp.data.model.BookRequestFilters;
+import com.library.proj.libraryapp.data.model.Dictionary;
 import com.library.proj.libraryapp.di.component.ActivityComponent;
 import com.library.proj.libraryapp.di.module.SearchModule;
 import com.library.proj.libraryapp.ui.base.BaseActivity;
@@ -48,6 +50,8 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     EditText searchVolumeEt;
     @BindView(R.id.search_type_spn)
     Spinner searchTypeSpn;
+    @BindView(R.id.search_availability_spn)
+    Spinner searchAvailabilitySpn;
     @BindView(R.id.search_category_btn)
     Button searchCategoryBtn;
     @BindView(R.id.search_clear_btn)
@@ -59,6 +63,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     List<EditText> allEtFields;
 
     private String selectedType;
+    private String selectedAvailability;
 
     @OnClick(R.id.search_clear_btn)
     public void onClearClick() {
@@ -100,18 +105,24 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        setupComponents();
+        getPresenter().getDictionary();
     }
 
     @Override
-    public void setupComponents() {
-        setupTypeSpinner();
+    public void processDictionary(Dictionary dictionary) {
+        setupTypeSpinner(dictionary.getBookTypesList());
+        setupAvailabilitySpinner(dictionary.getBookAvailabilitiesList());
     }
 
-    private void setupTypeSpinner() {
-        String[] types = getResources().getStringArray(R.array.book_types);
+    @Override
+    public void onDictionaryError(Throwable throwable) {
+        Toast.makeText(getApplicationContext(),
+                getResources().getString(R.string.dictionary_error), Toast.LENGTH_LONG).show();
+    }
+
+    private void setupTypeSpinner(List<String> bookTypesList) {
         ArrayAdapter<String> typesAdapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, types);
+                android.R.layout.simple_spinner_item, bookTypesList);
         typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchTypeSpn.setAdapter(typesAdapter);
         searchTypeSpn.setOnItemSelectedListener(getOnTypeSelectedListener());
@@ -122,6 +133,28 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 selectedType = searchTypeSpn.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        };
+    }
+
+    private void setupAvailabilitySpinner(List<String> bookAvailabilitiesList) {
+        ArrayAdapter<String> availabilityAdapter = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_spinner_item, bookAvailabilitiesList);
+        availabilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        searchAvailabilitySpn.setAdapter(availabilityAdapter);
+        searchAvailabilitySpn.setOnItemSelectedListener(getOnAvailabilitySelectedListener());
+    }
+
+    private AdapterView.OnItemSelectedListener getOnAvailabilitySelectedListener() {
+        return new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                selectedAvailability = searchAvailabilitySpn.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -150,6 +183,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         bookRequestFilters.setYear(Integer.getInteger(searchYearEt.getText().toString().trim()));
         bookRequestFilters.setVolume(searchVolumeEt.getText().toString().trim());
         bookRequestFilters.setType(selectedType);
+        bookRequestFilters.setAvailability(selectedAvailability);
         return bookRequestFilters;
     }
 }

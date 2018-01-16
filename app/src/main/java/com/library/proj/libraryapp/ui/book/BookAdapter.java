@@ -40,7 +40,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
     public void onBindViewHolder(BookViewHolder holder, int position) {
         Book book = books.get(position);
         onBind(holder, book);
-        holder.seeMoreIv.setOnClickListener(v -> onBookClickSubject.onNext(book));
     }
 
     @Override
@@ -52,6 +51,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
         holder.titleTv.setText(book.getTitle());
         holder.authorTv.setText(book.getResponsibility());
         setupBookAvailability(holder, book);
+        holder.seeMoreIv.setOnClickListener(v -> onBookClickSubject.onNext(book));
     }
 
     private void setupBookAvailability(BookViewHolder holder, Book book) {
