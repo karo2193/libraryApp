@@ -4,7 +4,6 @@ import com.library.proj.libraryapp.di.module.ActivityModule;
 import com.library.proj.libraryapp.di.module.BookModule;
 import com.library.proj.libraryapp.di.module.CategoryModule;
 import com.library.proj.libraryapp.di.module.MainModule;
-import com.library.proj.libraryapp.di.module.RemoteDataModule;
 import com.library.proj.libraryapp.di.module.SearchModule;
 import com.library.proj.libraryapp.di.scope.ActivityScope;
 
@@ -16,7 +15,7 @@ import dagger.Component;
 
 @ActivityScope
 @Component(modules = {ActivityModule.class}, dependencies = AppComponent.class)
-public interface ActivityComponent {
+public interface ActivityComponent extends AppComponent {
 
     MainComponent addModule(MainModule module);
     SearchComponent addModule(SearchModule module);

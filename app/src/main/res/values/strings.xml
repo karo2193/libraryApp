@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">LibraryApp</string>
 
+    <string name="books_error">Niestety pobranie książek nie powiodło się</string>
+
+    <string name="categories_error">Niestety pobranie kategorii nie powiodło się</string>
+
+    <string name="dictionary_error">Niestety pobranie typów książki oraz dostępności nie powiodło się</string>
+
     <string name="search_find_book">Znajdź książkę</string>
     <string name="search_title">Tytuł</string>
     <string name="search_author">Autor</string>
@@ -9,13 +15,8 @@
     <string name="search_year">Rok wydania</string>
     <string name="search_volume">Tom</string>
     <string name="search_type">Typ pozycji</string>
+    <string name="search_availability">Dostępność</string>
     <string name="search_category">Wybierz kategorię</string>
     <string name="search_clear">Czyść</string>
     <string name="search_search">Szukaj</string>
-    <string-array
-        name="book_types">
-        <item>Podręcznik</item>
-        <item>Zestaw ćwiczeń</item>
-        <item>Inny</item>
-    </string-array>
 </resources>

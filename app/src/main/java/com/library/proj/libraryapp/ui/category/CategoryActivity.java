@@ -2,9 +2,11 @@ package com.library.proj.libraryapp.ui.category;
 
 import android.os.Bundle;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.library.proj.libraryapp.R;
 import com.library.proj.libraryapp.data.model.Category;
+import com.library.proj.libraryapp.data.model.CategoryResponse;
 import com.library.proj.libraryapp.di.component.ActivityComponent;
 import com.library.proj.libraryapp.di.module.CategoryModule;
 import com.library.proj.libraryapp.ui.base.BaseActivity;
@@ -47,9 +49,19 @@ public class CategoryActivity extends BaseActivity<CategoryContract.View, Catego
     }
 
     @Override
-    public void processCategories(List<Category> categories) {
-        this.categories = categories;
+    public void processCategories(List<CategoryResponse> categoryResponses) {
+        categories.clear();
+        for(CategoryResponse categoryResponse : categoryResponses) {
+            categoryResponse.setCategorySubcategories();
+            categories.add(categoryResponse.getCategory());
+        }
         setupCategoriesLv();
+    }
+
+    @Override
+    public void onAllCategoriesError(Throwable throwable) {
+        Toast.makeText(getApplicationContext(),
+                getResources().getString(R.string.categories_error), Toast.LENGTH_LONG).show();
     }
 
     @Override

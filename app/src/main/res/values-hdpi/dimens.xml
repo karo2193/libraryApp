@@ -7,4 +7,7 @@
 	<dimen name="padding_small">6dp</dimen>
 	<dimen name="search_component_height">60dp</dimen>
 	<dimen name="subcategory_item_margin_left">36dp</dimen>
+	<dimen name="text_small_size">16.8sp</dimen>
+	<dimen name="text_medium_size">21.6sp</dimen>
+	<dimen name="text_large_size">26.4sp</dimen>
 </resources>

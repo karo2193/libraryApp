@@ -16,6 +16,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, RemoteDataModule.class})
 public interface AppComponent {
+
     UseCaseFactory getUseCaseFactory();
 
     void inject(LibraryApplication application);

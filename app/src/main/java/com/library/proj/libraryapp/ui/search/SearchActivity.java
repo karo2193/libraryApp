@@ -9,11 +9,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.library.proj.libraryapp.R;
+import com.library.proj.libraryapp.data.model.BookRequestFilters;
+import com.library.proj.libraryapp.data.model.Dictionary;
 import com.library.proj.libraryapp.di.component.ActivityComponent;
 import com.library.proj.libraryapp.di.module.SearchModule;
 import com.library.proj.libraryapp.ui.base.BaseActivity;
+import com.library.proj.libraryapp.ui.book.BookActivity;
 import com.library.proj.libraryapp.ui.category.CategoryActivity;
 
 import java.util.ArrayList;
@@ -28,7 +32,7 @@ import butterknife.OnClick;
 public class SearchActivity extends BaseActivity<SearchContract.View, SearchPresenter>
         implements SearchContract.View {
 
-    private static final int THE_EARLIEST_YEAR = 1000;
+    public static final String BOOK_FILTERS_EXTRA = "bookFiltersExtra";
 
     @BindView(R.id.search_toolbar)
     Toolbar toolbar;
@@ -46,6 +50,8 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     EditText searchVolumeEt;
     @BindView(R.id.search_type_spn)
     Spinner searchTypeSpn;
+    @BindView(R.id.search_availability_spn)
+    Spinner searchAvailabilitySpn;
     @BindView(R.id.search_category_btn)
     Button searchCategoryBtn;
     @BindView(R.id.search_clear_btn)
@@ -57,6 +63,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     List<EditText> allEtFields;
 
     private String selectedType;
+    private String selectedAvailability;
 
     @OnClick(R.id.search_clear_btn)
     public void onClearClick() {
@@ -70,7 +77,10 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
 
     @OnClick(R.id.search_search_btn)
     public void onSearchClick() {
-
+        BookRequestFilters bookRequestFilters = getBookRequestFilters();
+        Intent intent = new Intent(this, BookActivity.class);
+        intent.putExtra(BOOK_FILTERS_EXTRA, bookRequestFilters);
+        startActivity(intent);
     }
 
     @Override
@@ -94,18 +104,25 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        setupComponents();
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getPresenter().getDictionary();
     }
 
     @Override
-    public void setupComponents() {
-        setupTypeSpinner();
+    public void processDictionary(Dictionary dictionary) {
+        setupTypeSpinner(dictionary.getBookTypesList());
+        setupAvailabilitySpinner(dictionary.getBookAvailabilitiesList());
     }
 
-    private void setupTypeSpinner() {
-        String[] types = getResources().getStringArray(R.array.book_types);
+    @Override
+    public void onDictionaryError(Throwable throwable) {
+        Toast.makeText(getApplicationContext(),
+                getResources().getString(R.string.dictionary_error), Toast.LENGTH_LONG).show();
+    }
+
+    private void setupTypeSpinner(List<String> bookTypesList) {
         ArrayAdapter<String> typesAdapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, types);
+                android.R.layout.simple_spinner_item, bookTypesList);
         typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchTypeSpn.setAdapter(typesAdapter);
         searchTypeSpn.setOnItemSelectedListener(getOnTypeSelectedListener());
@@ -120,7 +137,29 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                //default implementation ignored
+
+            }
+        };
+    }
+
+    private void setupAvailabilitySpinner(List<String> bookAvailabilitiesList) {
+        ArrayAdapter<String> availabilityAdapter = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_spinner_item, bookAvailabilitiesList);
+        availabilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        searchAvailabilitySpn.setAdapter(availabilityAdapter);
+        searchAvailabilitySpn.setOnItemSelectedListener(getOnAvailabilitySelectedListener());
+    }
+
+    private AdapterView.OnItemSelectedListener getOnAvailabilitySelectedListener() {
+        return new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                selectedAvailability = searchAvailabilitySpn.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         };
     }
@@ -133,5 +172,18 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         for (EditText editText : allEtFields) {
             editText.getText().clear();
         }
+    }
+
+    private BookRequestFilters getBookRequestFilters() {
+        BookRequestFilters bookRequestFilters = new BookRequestFilters();
+        bookRequestFilters.setTitle(searchTitleEt.getText().toString().trim());
+        bookRequestFilters.setResponsibility(searchAuthorEt.getText().toString().trim());
+        bookRequestFilters.setIsbnWithIssn(searchInventoryNumberEt.getText().toString().trim());
+        bookRequestFilters.setMainSignature(searchMainSignatureEt.getText().toString().trim());
+        bookRequestFilters.setYear(Integer.getInteger(searchYearEt.getText().toString().trim()));
+        bookRequestFilters.setVolume(searchVolumeEt.getText().toString().trim());
+        bookRequestFilters.setType(selectedType);
+        bookRequestFilters.setAvailability(selectedAvailability);
+        return bookRequestFilters;
     }
 }

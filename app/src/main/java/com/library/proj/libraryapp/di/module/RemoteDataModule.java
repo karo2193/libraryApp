@@ -16,6 +16,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -50,9 +51,19 @@ public class RemoteDataModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(Cache cache, ApiGeneralInterceptor apiGeneralInterceptor) {
+    HttpLoggingInterceptor provideHttpLoggingInterceptor() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return httpLoggingInterceptor;
+    }
+
+    @Provides
+    @Singleton
+    OkHttpClient provideOkHttpClient(Cache cache, ApiGeneralInterceptor apiGeneralInterceptor,
+                                     HttpLoggingInterceptor httpLoggingInterceptor) {
         OkHttpClient.Builder client = new OkHttpClient.Builder();
         client.addInterceptor(apiGeneralInterceptor);
+        client.addInterceptor(httpLoggingInterceptor);
         client.followRedirects(false);
         client.followSslRedirects(false);
         client.cache(cache);
@@ -68,7 +79,7 @@ public class RemoteDataModule {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(ApiConfig.HOST)
+                .baseUrl(ApiConfig.HOST_DEV)
                 .client(okHttpClient)
                 .build();
     }
