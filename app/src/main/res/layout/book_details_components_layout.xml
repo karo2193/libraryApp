@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/book_details_title_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/book_details_author_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/book_details_author_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/book_details_inventory_number_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_details_title_tv"/>
+
+    <TextView
+        android:id="@+id/book_details_inventory_number_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/book_details_main_signature_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_details_author_tv"/>
+
+    <TextView
+        android:id="@+id/book_details_main_signature_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/book_details_year_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_details_inventory_number_tv"/>
+
+    <TextView
+        android:id="@+id/book_details_year_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/book_details_volume_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_details_main_signature_tv"/>
+
+    <TextView
+        android:id="@+id/book_details_volume_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/book_details_type_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_details_year_tv"/>
+
+    <TextView
+        android:id="@+id/book_details_type_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/book_details_availability_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_details_volume_tv"/>
+
+    <TextView
+        android:id="@+id/book_details_availability_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintBottom_toTopOf="@id/book_details_category_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_details_type_tv"/>
+
+    <TextView
+        android:id="@+id/book_details_category_tv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/search_component_height"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_details_availability_tv"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
