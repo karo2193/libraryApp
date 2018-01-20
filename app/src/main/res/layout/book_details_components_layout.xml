@@ -1,89 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/book_details_title_tv"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/search_component_height"
-        app:layout_constraintBottom_toTopOf="@id/book_details_author_tv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    <LinearLayout
+        android:id="@+id/book_details_title_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_author_ll"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/book_details_author_tv"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/search_component_height"
-        app:layout_constraintBottom_toTopOf="@id/book_details_inventory_number_tv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_details_title_tv"/>
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_title"/>
 
-    <TextView
-        android:id="@+id/book_details_inventory_number_tv"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/search_component_height"
-        app:layout_constraintBottom_toTopOf="@id/book_details_main_signature_tv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_details_author_tv"/>
+        <TextView
+            android:id="@+id/book_details_title_tv"
+            style="@style/BookDetailsNormalTextStyle"/>
 
-    <TextView
-        android:id="@+id/book_details_main_signature_tv"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/search_component_height"
-        app:layout_constraintBottom_toTopOf="@id/book_details_year_tv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_details_inventory_number_tv"/>
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/book_details_year_tv"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/search_component_height"
-        app:layout_constraintBottom_toTopOf="@id/book_details_volume_tv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_details_main_signature_tv"/>
+    <LinearLayout
+        android:id="@+id/book_details_author_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_inventory_number_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_title_ll">
 
-    <TextView
-        android:id="@+id/book_details_volume_tv"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/search_component_height"
-        app:layout_constraintBottom_toTopOf="@id/book_details_type_tv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_details_year_tv"/>
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_author"/>
 
-    <TextView
-        android:id="@+id/book_details_type_tv"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/search_component_height"
-        app:layout_constraintBottom_toTopOf="@id/book_details_availability_tv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_details_volume_tv"/>
+        <TextView
+            android:id="@+id/book_details_author_tv"
+            style="@style/BookDetailsNormalTextStyle"/>
 
-    <TextView
-        android:id="@+id/book_details_availability_tv"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/search_component_height"
-        app:layout_constraintBottom_toTopOf="@id/book_details_category_tv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_details_type_tv"/>
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/book_details_category_tv"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/search_component_height"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_details_availability_tv"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+    <LinearLayout
+        android:id="@+id/book_details_inventory_number_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_main_signature_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_author_ll">
 
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_inventory_number"/>
+
+        <TextView
+            android:id="@+id/book_details_inventory_number_tv"
+            style="@style/BookDetailsNormalTextStyle"/>
+
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/book_details_main_signature_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_year_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_inventory_number_ll">
+
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_main_signature"/>
+
+        <TextView
+            android:id="@+id/book_details_main_signature_tv"
+            style="@style/BookDetailsNormalTextStyle"/>
+
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/book_details_year_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_volume_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_main_signature_ll">
+
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_year"/>
+
+        <TextView
+            android:id="@+id/book_details_year_tv"
+            style="@style/BookDetailsNormalTextStyle"/>
+
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/book_details_volume_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_type_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_year_ll">
+
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_volume"/>
+
+        <TextView
+            android:id="@+id/book_details_volume_tv"
+            style="@style/BookDetailsNormalTextStyle"/>
+
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/book_details_type_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_availability_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_volume_ll">
+
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_type"/>
+
+        <TextView
+            android:id="@+id/book_details_type_tv"
+            style="@style/BookDetailsNormalTextStyle"/>
+
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/book_details_availability_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_category_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_type_ll">
+
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_availability"/>
+
+        <TextView
+            android:id="@+id/book_details_availability_tv"
+            style="@style/BookDetailsNormalTextStyle"/>
+
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/book_details_category_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_details_availability_ll">
+
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/book_details_categories"/>
+
+        <TextView
+            android:id="@+id/book_details_category_tv"
+            style="@style/BookDetailsNormalTextStyle"/>
+
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

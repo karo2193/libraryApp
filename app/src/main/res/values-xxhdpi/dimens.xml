@@ -9,4 +9,5 @@
 	<dimen name="text_small_size">33.6sp</dimen>
 	<dimen name="text_medium_size">43.2sp</dimen>
 	<dimen name="text_large_size">52.8sp</dimen>
+	<dimen name="divider_height">9.6dp</dimen>
 </resources>

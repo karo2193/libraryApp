@@ -12,6 +12,7 @@ public interface BookDetailsContract {
 
     }
     interface View extends BaseView {
-
+        void getBookData();
+        void fillFields();
     }
 }

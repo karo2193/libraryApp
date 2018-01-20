@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
+    <dimen name="divider_height">4dp</dimen>
+
     <dimen name="image_default_size">24dp</dimen>
 
     <dimen name="margin_default">10dp</dimen>

@@ -71,4 +71,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
                 break;
         }
     }
+
+    public PublishSubject<Book> getOnBookClickSubject() {
+        return onBookClickSubject;
+    }
 }
