@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.library.proj.libraryapp.ui.search.SearchActivity">
 
     <include
@@ -40,8 +41,7 @@
 
         <Button
             android:id="@+id/search_clear_btn"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/search_component_height"
+            style="@style/ButtonDefaultStyle"
             android:text="@string/search_clear"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -50,8 +50,7 @@
 
         <Button
             android:id="@+id/search_search_btn"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/search_component_height"
+            style="@style/ButtonDefaultStyle"
             android:text="@string/search_search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/search_clear_btn"

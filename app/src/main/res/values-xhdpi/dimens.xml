@@ -2,6 +2,9 @@
 <resources>
     <dimen name="a_phone_scale">1</dimen>
 
+    <dimen name="dictionary_dialog_width">170dp</dimen>
+
+    <dimen name="divider_height_minus">-4dp</dimen>
     <dimen name="divider_height">4dp</dimen>
 
     <dimen name="image_default_size">24dp</dimen>

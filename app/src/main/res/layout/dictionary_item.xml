@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:id="@+id/dictionary_item_tv"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TextMediumStyle"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/search_component_height"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/padding_default"
+    android:paddingLeft="@dimen/padding_default"
+    android:paddingEnd="@dimen/padding_default"
+    android:paddingRight="@dimen/padding_default"
+    android:background="@color/colorPrimaryLight">
+</TextView>

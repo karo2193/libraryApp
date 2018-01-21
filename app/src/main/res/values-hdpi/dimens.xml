@@ -2,6 +2,9 @@
 <resources>
     <dimen name="a_tablet_scale">1.4</dimen>
 
+    <dimen name="dictionary_dialog_width">240dp</dimen>
+
+    <dimen name="divider_height_minus">-5dp</dimen>
     <dimen name="divider_height">5dp</dimen>
 
     <dimen name="image_default_size">33dp</dimen>

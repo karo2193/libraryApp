@@ -3,12 +3,8 @@ package com.library.proj.libraryapp.ui.search;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.library.proj.libraryapp.R;
@@ -20,14 +16,15 @@ import com.library.proj.libraryapp.ui.base.BaseActivity;
 import com.library.proj.libraryapp.ui.book.BookActivity;
 import com.library.proj.libraryapp.ui.category.CategoryActivity;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.library.proj.libraryapp.ui.search.DictionaryDialog.BOOK_AVAILABILITY_MODE;
+import static com.library.proj.libraryapp.ui.search.DictionaryDialog.BOOK_TYPES_MODE;
 
 public class SearchActivity extends BaseActivity<SearchContract.View, SearchPresenter>
         implements SearchContract.View {
@@ -48,10 +45,10 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     EditText searchYearEt;
     @BindView(R.id.search_volume_et)
     EditText searchVolumeEt;
-    @BindView(R.id.search_type_spn)
-    Spinner searchTypeSpn;
-    @BindView(R.id.search_availability_spn)
-    Spinner searchAvailabilitySpn;
+    @BindView(R.id.search_type_btn)
+    Button searchTypeBtn;
+    @BindView(R.id.search_availability_btn)
+    Button searchAvailabilityBtn;
     @BindView(R.id.search_category_btn)
     Button searchCategoryBtn;
     @BindView(R.id.search_clear_btn)
@@ -64,10 +61,29 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
 
     private String selectedType;
     private String selectedAvailability;
+    private Dictionary dictionary;
 
     @OnClick(R.id.search_clear_btn)
     public void onClearClick() {
         clearAllFields();
+    }
+
+    @OnClick(R.id.search_type_btn)
+    public void onTypeClick() {
+        if (isDictionaryTypeEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.search_no_directory_items), Toast.LENGTH_LONG).show();
+        } else {
+            openDictionaryDialogInTypesMode();
+        }
+    }
+
+    @OnClick(R.id.search_availability_btn)
+    public void onAvailabilityClick() {
+        if (isDictionaryAvailabilityEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.search_no_directory_items), Toast.LENGTH_LONG).show();
+        } else {
+            openDictionaryDialogInAvailabilityMode();
+        }
     }
 
     @OnClick(R.id.search_category_btn)
@@ -110,8 +126,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
 
     @Override
     public void processDictionary(Dictionary dictionary) {
-        setupTypeSpinner(dictionary.getBookTypesList());
-        setupAvailabilitySpinner(dictionary.getBookAvailabilitiesList());
+        this.dictionary = dictionary;
     }
 
     @Override
@@ -120,58 +135,22 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
                 getResources().getString(R.string.dictionary_error), Toast.LENGTH_LONG).show();
     }
 
-    private void setupTypeSpinner(List<String> bookTypesList) {
-        ArrayAdapter<String> typesAdapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, bookTypesList);
-        typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        searchTypeSpn.setAdapter(typesAdapter);
-        searchTypeSpn.setOnItemSelectedListener(getOnTypeSelectedListener());
-    }
-
-    private AdapterView.OnItemSelectedListener getOnTypeSelectedListener() {
-        return new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                selectedType = searchTypeSpn.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        };
-    }
-
-    private void setupAvailabilitySpinner(List<String> bookAvailabilitiesList) {
-        ArrayAdapter<String> availabilityAdapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, bookAvailabilitiesList);
-        availabilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        searchAvailabilitySpn.setAdapter(availabilityAdapter);
-        searchAvailabilitySpn.setOnItemSelectedListener(getOnAvailabilitySelectedListener());
-    }
-
-    private AdapterView.OnItemSelectedListener getOnAvailabilitySelectedListener() {
-        return new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                selectedAvailability = searchAvailabilitySpn.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        };
-    }
-
     private void clearAllFields() {
         clearAllEtFields();
+        clearAllButtons();
     }
 
     private void clearAllEtFields() {
         for (EditText editText : allEtFields) {
             editText.getText().clear();
         }
+    }
+
+    private void clearAllButtons() {
+        selectedType = "";
+        searchTypeBtn.setText(getResources().getString(R.string.search_type));
+        selectedAvailability = "";
+        searchAvailabilityBtn.setText(getResources().getString(R.string.search_availability));
     }
 
     private BookRequestFilters getBookRequestFilters() {
@@ -185,5 +164,35 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         bookRequestFilters.setType(selectedType);
         bookRequestFilters.setAvailability(selectedAvailability);
         return bookRequestFilters;
+    }
+
+    private void openDictionaryDialogInTypesMode() {
+        DictionaryDialog dictionaryDialog = new DictionaryDialog(this,
+                dictionary.getBookTypesList(), BOOK_TYPES_MODE);
+        dictionaryDialog.setOnDictionaryDialogResult(result -> {
+            selectedType = result;
+            searchTypeBtn.setText(result);
+        });
+        dictionaryDialog.show();
+    }
+
+    private void openDictionaryDialogInAvailabilityMode() {
+        DictionaryDialog dictionaryDialog = new DictionaryDialog(this,
+                dictionary.getBookAvailabilitiesList(), BOOK_AVAILABILITY_MODE);
+        dictionaryDialog.setOnDictionaryDialogResult(result -> {
+            selectedAvailability = result;
+            searchAvailabilityBtn.setText(result);
+        });
+        dictionaryDialog.show();
+    }
+
+    private boolean isDictionaryTypeEmpty() {
+        return dictionary == null || dictionary.getBookTypesList() == null
+                || dictionary.getBookTypesList().isEmpty();
+    }
+
+    private boolean isDictionaryAvailabilityEmpty() {
+        return dictionary == null || dictionary.getBookAvailabilitiesList() == null
+                || dictionary.getBookAvailabilitiesList().isEmpty();
     }
 }
