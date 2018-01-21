@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-	<dimen name="image_default_size">28.8dp</dimen>
-	<dimen name="margin_default">12dp</dimen>
-	<dimen name="margin_small">6dp</dimen>
-	<dimen name="padding_default">12dp</dimen>
-	<dimen name="padding_small">6dp</dimen>
-	<dimen name="search_component_height">60dp</dimen>
-	<dimen name="subcategory_item_margin_left">36dp</dimen>
-	<dimen name="text_small_size">16.8sp</dimen>
-	<dimen name="text_medium_size">21.6sp</dimen>
-	<dimen name="text_large_size">26.4sp</dimen>
+    <dimen name="a_tablet_scale">1.4</dimen>
+
+    <dimen name="divider_height">5dp</dimen>
+
+    <dimen name="image_default_size">33dp</dimen>
+    <dimen name="image_logo_size">300dp</dimen>
+
+    <dimen name="margin_default">14dp</dimen>
+    <dimen name="margin_small">7dp</dimen>
+
+    <dimen name="padding_default">14dp</dimen>
+    <dimen name="padding_small">7dp</dimen>
+
+    <dimen name="search_component_height">84dp</dimen>
+
+    <dimen name="subcategory_item_margin_left">42dp</dimen>
+
+    <dimen name="text_extra_large_size">70sp</dimen>
+    <dimen name="text_large_size">32sp</dimen>
+    <dimen name="text_medium_size">26sp</dimen>
+    <dimen name="text_small_size">20sp</dimen>
 </resources>

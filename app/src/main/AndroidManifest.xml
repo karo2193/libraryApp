@@ -23,6 +23,8 @@
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.category.CategoryActivity"/>
         <activity android:name=".ui.book.BookActivity"/>
+        <activity android:name=".ui.bookdetail.BookDetailsActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

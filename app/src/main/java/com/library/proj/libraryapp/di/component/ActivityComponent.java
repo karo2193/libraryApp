@@ -1,6 +1,7 @@
 package com.library.proj.libraryapp.di.component;
 
 import com.library.proj.libraryapp.di.module.ActivityModule;
+import com.library.proj.libraryapp.di.module.BookDetailsModule;
 import com.library.proj.libraryapp.di.module.BookModule;
 import com.library.proj.libraryapp.di.module.CategoryModule;
 import com.library.proj.libraryapp.di.module.MainModule;
@@ -21,4 +22,5 @@ public interface ActivityComponent extends AppComponent {
     SearchComponent addModule(SearchModule module);
     CategoryComponent addModule(CategoryModule module);
     BookComponent addModule(BookModule module);
+    BookDetailsComponent addModule(BookDetailsModule module);
 }

@@ -9,4 +9,7 @@
 	<dimen name="text_small_size">42sp</dimen>
 	<dimen name="text_medium_size">54sp</dimen>
 	<dimen name="text_large_size">66sp</dimen>
+	<dimen name="divider_height">12dp</dimen>
+	<dimen name="image_logo_size">450dp</dimen>
+	<dimen name="text_extra_large_size">132sp</dimen>
 </resources>

@@ -15,6 +15,7 @@ import com.library.proj.libraryapp.data.model.Category;
 import com.library.proj.libraryapp.di.component.ActivityComponent;
 import com.library.proj.libraryapp.di.module.BookModule;
 import com.library.proj.libraryapp.ui.base.BaseActivity;
+import com.library.proj.libraryapp.ui.bookdetail.BookDetailsActivity;
 import com.library.proj.libraryapp.ui.search.SearchActivity;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
         implements BookContract.View {
 
     private static final int API_BOOKS_LIMIT = 50;
+    public static final String BOOK_EXTRA = "bookExtra";
 
     @BindView(R.id.book_rv)
     RecyclerView bookRv;
@@ -86,6 +88,11 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
         bookRv.setLayoutManager(new LinearLayoutManager(this));
         BookAdapter bookAdapter = new BookAdapter(books);
         bookRv.setAdapter(bookAdapter);
+        bookAdapter.getOnBookClickSubject().subscribe(book -> {
+            Intent intent = new Intent(this, BookDetailsActivity.class);
+            intent.putExtra(BOOK_EXTRA, book);
+            startActivity(intent);
+        });
     }
 
     @Override
