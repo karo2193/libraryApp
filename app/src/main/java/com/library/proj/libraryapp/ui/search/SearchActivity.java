@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.library.proj.libraryapp.R;
 import com.library.proj.libraryapp.data.model.BookRequestFilters;
+import com.library.proj.libraryapp.data.model.Category;
+import com.library.proj.libraryapp.data.model.CategoryResponse;
 import com.library.proj.libraryapp.data.model.Dictionary;
 import com.library.proj.libraryapp.di.component.ActivityComponent;
 import com.library.proj.libraryapp.di.module.SearchModule;
@@ -16,6 +19,7 @@ import com.library.proj.libraryapp.ui.base.BaseActivity;
 import com.library.proj.libraryapp.ui.book.BookActivity;
 import com.library.proj.libraryapp.ui.category.CategoryActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +34,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         implements SearchContract.View {
 
     public static final String BOOK_FILTERS_EXTRA = "bookFiltersExtra";
+    public static final String CATEGORY_LIST_EXTRA = "categoryListExtra";
 
     @BindView(R.id.search_toolbar)
     Toolbar toolbar;
@@ -39,6 +44,8 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     EditText searchAuthorEt;
     @BindView(R.id.search_inventory_number_et)
     EditText searchInventoryNumberEt;
+    @BindView(R.id.search_signature_et)
+    EditText searchSignatureEt;
     @BindView(R.id.search_main_signature_et)
     EditText searchMainSignatureEt;
     @BindView(R.id.search_year_et)
@@ -51,19 +58,23 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     Button searchAvailabilityBtn;
     @BindView(R.id.search_category_btn)
     Button searchCategoryBtn;
-    @BindView(R.id.search_clear_btn)
-    Button searchClearBtn;
-    @BindView(R.id.search_search_btn)
-    Button searchSearchBtn;
+
     @BindViews({R.id.search_title_et, R.id.search_author_et, R.id.search_inventory_number_et,
-            R.id.search_main_signature_et, R.id.search_volume_et})
+            R.id.search_signature_et, R.id.search_main_signature_et, R.id.search_year_et,
+            R.id.search_volume_et})
     List<EditText> allEtFields;
 
     private String selectedType;
     private String selectedAvailability;
     private Dictionary dictionary;
+    private ArrayList<Category> categories = new ArrayList<>();
 
-    @OnClick(R.id.search_clear_btn)
+    @OnClick(R.id.search_refresh_iv)
+    public void onRefreshClick() {
+        downloadData();
+    }
+
+    @OnClick(R.id.search_delete_iv)
     public void onClearClick() {
         clearAllFields();
     }
@@ -88,10 +99,14 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
 
     @OnClick(R.id.search_category_btn)
     public void onCategoryClick() {
-        startActivity(new Intent(this, CategoryActivity.class));
+        if(categories.isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.search_no_directory_items), Toast.LENGTH_LONG).show();
+        } else {
+            openCategoryActivity();
+        }
     }
 
-    @OnClick(R.id.search_search_btn)
+    @OnClick(R.id.search_btn)
     public void onSearchClick() {
         BookRequestFilters bookRequestFilters = getBookRequestFilters();
         Intent intent = new Intent(this, BookActivity.class);
@@ -121,7 +136,12 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        downloadData();
+    }
+
+    private void downloadData() {
         getPresenter().getDictionary();
+        getPresenter().getAllCategories();
     }
 
     @Override
@@ -133,6 +153,21 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     public void onDictionaryError(Throwable throwable) {
         Toast.makeText(getApplicationContext(),
                 getResources().getString(R.string.dictionary_error), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void processCategories(List<CategoryResponse> categoryResponses) {
+        categories.clear();
+        for(CategoryResponse categoryResponse : categoryResponses) {
+            categoryResponse.setCategorySubcategories();
+            categories.add(categoryResponse.getCategory());
+        }
+    }
+
+    @Override
+    public void onAllCategoriesError(Throwable throwable) {
+        Toast.makeText(getApplicationContext(),
+                getResources().getString(R.string.categories_error), Toast.LENGTH_LONG).show();
     }
 
     private void clearAllFields() {
@@ -158,6 +193,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         bookRequestFilters.setTitle(searchTitleEt.getText().toString().trim());
         bookRequestFilters.setResponsibility(searchAuthorEt.getText().toString().trim());
         bookRequestFilters.setIsbnWithIssn(searchInventoryNumberEt.getText().toString().trim());
+        bookRequestFilters.setFacultySignature(searchSignatureEt.getText().toString().trim());
         bookRequestFilters.setMainSignature(searchMainSignatureEt.getText().toString().trim());
         bookRequestFilters.setYear(Integer.getInteger(searchYearEt.getText().toString().trim()));
         bookRequestFilters.setVolume(searchVolumeEt.getText().toString().trim());
@@ -184,6 +220,12 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
             searchAvailabilityBtn.setText(result);
         });
         dictionaryDialog.show();
+    }
+
+    private void openCategoryActivity() {
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putParcelableArrayListExtra(CATEGORY_LIST_EXTRA, categories);
+        startActivity(intent);
     }
 
     private boolean isDictionaryTypeEmpty() {

@@ -23,4 +23,12 @@ public class SearchPresenter extends Presenter<SearchContract.View> implements S
                 .subscribe(view::processDictionary, view::onDictionaryError);
         compositeDisposable.add(disposable);
     }
+
+    @Override
+    public void getAllCategories() {
+        Disposable disposable = useCaseFactory.getAllCategoriesUseCase()
+                .execute()
+                .subscribe(view::processCategories, view::onAllCategoriesError);
+        compositeDisposable.add(disposable);
+    }
 }

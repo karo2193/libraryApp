@@ -1,5 +1,6 @@
 package com.library.proj.libraryapp.ui.category;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -11,6 +12,7 @@ import com.library.proj.libraryapp.data.model.CategoryResponse;
 import com.library.proj.libraryapp.di.component.ActivityComponent;
 import com.library.proj.libraryapp.di.module.CategoryModule;
 import com.library.proj.libraryapp.ui.base.BaseActivity;
+import com.library.proj.libraryapp.ui.search.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,31 +48,19 @@ public class CategoryActivity extends BaseActivity<CategoryContract.View, Catego
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
         ButterKnife.bind(this);
-        getPresenter().getAllCategories();
-    }
-
-    @Override
-    public void processCategories(List<CategoryResponse> categoryResponses) {
-        categories.clear();
-        for(CategoryResponse categoryResponse : categoryResponses) {
-            categoryResponse.setCategorySubcategories();
-            categories.add(categoryResponse.getCategory());
-        }
         setupCategoriesLv();
     }
 
     @Override
-    public void onAllCategoriesError(Throwable throwable) {
-        Toast.makeText(getApplicationContext(),
-                getResources().getString(R.string.categories_error), Toast.LENGTH_LONG).show();
-    }
-
-    @Override
     public void setupCategoriesLv() {
-        CategoryAdapter adapter = new CategoryAdapter(categories);
-        setupOnCategoryClick(adapter);
-        setupOnCategoryCheckBoxClick(adapter);
-        categoryLv.setAdapter(adapter);
+        Intent intent = getIntent();
+        if (intent != null) {
+            categories = intent.getParcelableArrayListExtra(SearchActivity.CATEGORY_LIST_EXTRA);
+            CategoryAdapter adapter = new CategoryAdapter(categories);
+            setupOnCategoryClick(adapter);
+            setupOnCategoryCheckBoxClick(adapter);
+            categoryLv.setAdapter(adapter);
+        }
     }
 
     private void setupOnCategoryCheckBoxClick(CategoryAdapter adapter) {

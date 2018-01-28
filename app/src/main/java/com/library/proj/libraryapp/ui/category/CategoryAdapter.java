@@ -9,6 +9,7 @@ import android.widget.BaseExpandableListAdapter;
 import com.library.proj.libraryapp.R;
 import com.library.proj.libraryapp.data.model.Category;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.subjects.PublishSubject;
@@ -19,7 +20,7 @@ import io.reactivex.subjects.PublishSubject;
 
 public class CategoryAdapter extends BaseExpandableListAdapter {
 
-    private List<Category> categories;
+    private List<Category> categories = new ArrayList<>();
     private PublishSubject<Category> onCategoryClick = PublishSubject.create();
     private PublishSubject<Category> onCategoryCheckBoxClick = PublishSubject.create();
 

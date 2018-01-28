@@ -13,12 +13,9 @@ import java.util.List;
 
 public interface CategoryContract {
     interface Presenter extends BasePresenter {
-        void getAllCategories();
     }
 
     interface View extends BaseView {
         void setupCategoriesLv();
-        void processCategories(List<CategoryResponse> categoryResponses);
-        void onAllCategoriesError(Throwable throwable);
     }
 }
