@@ -89,6 +89,31 @@
         <item name="android:textColor">@color/textColor</item>
     </style>
 
+    <style name="CategoryLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">@dimen/padding_default</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="CategoryCheckBoxStyle">
+        <item name="android:layout_width">@dimen/check_box_size</item>
+        <item name="android:layout_height">@dimen/check_box_size</item>
+        <item name="android:buttonTint">@color/colorPrimaryDark</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintLeft_toLeftOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+    <style name="CategoryTextViewStyle" parent="TextMediumStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_default</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
     <style name="SearchEditTextHintStyle" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">@dimen/text_medium_size</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>

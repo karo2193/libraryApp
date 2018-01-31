@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
+    <dimen name="check_box_size">30dp</dimen>
+
     <dimen name="dialog_min_width">240dp</dimen>
 
     <dimen name="divider_height">9.6dp</dimen>
-    <dimen name="divider_height_minus">-9.6dp</dimen>
+    <dimen name="divider_height_subcategory">2dp</dimen>
 
     <dimen name="elevation_default">4dp</dimen>
     <dimen name="elevation_big">8dp</dimen>
@@ -21,7 +23,8 @@
 
     <dimen name="search_component_height">120dp</dimen>
 
-    <dimen name="subcategory_item_margin_left">72dp</dimen>
+    <dimen name="subcategory_item_margin_left">20dp</dimen>
+    <dimen name="subcategory_item_height">60dp</dimen>
 
     <dimen name="text_extra_large_size">105.6sp</dimen>
     <dimen name="text_large_size">52.8sp</dimen>

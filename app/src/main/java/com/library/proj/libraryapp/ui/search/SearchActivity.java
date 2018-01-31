@@ -27,6 +27,8 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.library.proj.libraryapp.ui.category.CategoryActivity.ON_BACK_CATEGORIES_EXTRA;
+import static com.library.proj.libraryapp.ui.category.CategoryActivity.ON_BACK_RESULT_CODE;
 import static com.library.proj.libraryapp.ui.search.DictionaryDialog.BOOK_AVAILABILITY_MODE;
 import static com.library.proj.libraryapp.ui.search.DictionaryDialog.BOOK_TYPES_MODE;
 
@@ -115,21 +117,6 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     }
 
     @Override
-    protected int getLayoutRes() {
-        return R.layout.activity_search;
-    }
-
-    @Override
-    protected void performFieldInjection(ActivityComponent activityComponent) {
-        activityComponent.addModule(new SearchModule()).inject(this);
-    }
-
-    @Override
-    protected int getFragmentContainer() {
-        return 0;
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
@@ -139,9 +126,18 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         downloadData();
     }
 
-    private void downloadData() {
-        getPresenter().getDictionary();
-        getPresenter().getAllCategories();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ON_BACK_RESULT_CODE && resultCode == RESULT_OK && data != null) {
+            categories = data.getParcelableArrayListExtra(ON_BACK_CATEGORIES_EXTRA);
+            setCategoryButtonText();
+        }
+    }
+
+    @Override
+    protected void performFieldInjection(ActivityComponent activityComponent) {
+        activityComponent.addModule(new SearchModule()).inject(this);
     }
 
     @Override
@@ -168,6 +164,21 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     public void onAllCategoriesError(Throwable throwable) {
         Toast.makeText(getApplicationContext(),
                 getResources().getString(R.string.categories_error), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_search;
+    }
+
+    @Override
+    protected int getFragmentContainer() {
+        return 0;
+    }
+
+    private void downloadData() {
+        getPresenter().getDictionary();
+        getPresenter().getAllCategories();
     }
 
     private void clearAllFields() {
@@ -225,7 +236,38 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     private void openCategoryActivity() {
         Intent intent = new Intent(this, CategoryActivity.class);
         intent.putParcelableArrayListExtra(CATEGORY_LIST_EXTRA, categories);
-        startActivity(intent);
+        startActivityForResult(intent, ON_BACK_RESULT_CODE);
+    }
+
+    private void setCategoryButtonText() {
+        int selectedCategories = getSelectedCategories();
+        if(selectedCategories == 0) {
+            searchCategoryBtn.setText(getResources().getString(R.string.search_category));
+        } else {
+            searchCategoryBtn.setText(getResources()
+                    .getString(R.string.search_category_selected, selectedCategories));
+        }
+    }
+
+    private int getSelectedCategories() {
+        int selectedCategories = 0;
+        for(Category category : categories) {
+            if(category.isChecked()) {
+                selectedCategories++;
+            }
+            selectedCategories += getSelectedSubcategories(category);
+        }
+        return selectedCategories;
+    }
+
+    private int getSelectedSubcategories(Category category) {
+        int selectedSubcategories = 0;
+        for(Category subcategory : category.getSubcategories()) {
+            if(subcategory.isChecked()) {
+                selectedSubcategories++;
+            }
+        }
+        return selectedSubcategories;
     }
 
     private boolean isDictionaryTypeEmpty() {

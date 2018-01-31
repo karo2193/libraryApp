@@ -7,6 +7,7 @@
     <string name="book_details_categories">Kategorie książki</string>
 
     <string name="categories_error">Niestety pobranie kategorii nie powiodło się</string>
+    <string name="categories_toolbar">Kategorie</string>
 
     <string name="dictionary_error">Niestety pobranie typów książki oraz dostępności nie powiodło się</string>
 
@@ -22,6 +23,7 @@
     <string name="search_type">Typ pozycji</string>
     <string name="search_availability">Dostępność</string>
     <string name="search_category">Kategorie</string>
+    <string name="search_category_selected">Zaznaczone kategorie: %d</string>
     <string name="search_clear">Czyść</string>
     <string name="search_search">Szukaj</string>
 </resources>

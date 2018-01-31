@@ -2,9 +2,11 @@
 <resources>
     <dimen name="a_tablet_scale">1.4</dimen>
 
+    <dimen name="check_box_size">42dp</dimen>
+
     <dimen name="dialog_min_width">336dp</dimen>
 
-    <dimen name="divider_height_minus">-5dp</dimen>
+    <dimen name="divider_height_subcategory">2dp</dimen>
     <dimen name="divider_height">3dp</dimen>
 
     <dimen name="elevation_default">6dp</dimen>
@@ -23,7 +25,8 @@
 
     <dimen name="search_component_height">112dp</dimen>
 
-    <dimen name="subcategory_item_margin_left">42dp</dimen>
+    <dimen name="subcategory_item_margin_left">28dp</dimen>
+    <dimen name="subcategory_item_height">840dp</dimen>
 
     <dimen name="text_extra_large_size">70sp</dimen>
     <dimen name="text_large_size">30sp</dimen>

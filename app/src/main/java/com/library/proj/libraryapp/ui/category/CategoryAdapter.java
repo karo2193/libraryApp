@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 
 import com.library.proj.libraryapp.R;
 import com.library.proj.libraryapp.data.model.Category;
@@ -23,6 +24,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
     private List<Category> categories = new ArrayList<>();
     private PublishSubject<Category> onCategoryClick = PublishSubject.create();
     private PublishSubject<Category> onCategoryCheckBoxClick = PublishSubject.create();
+    private PublishSubject<Category> onSubcategoryCheckBoxClick = PublishSubject.create();
 
     public CategoryAdapter(List<Category> categories) {
         this.categories = categories;
@@ -75,20 +77,9 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         } else {
             viewHolder = (CategoryViewHolder) view.getTag();
         }
-        setupCategoryViewHolder(categories.get(position), viewHolder);
+        setupCategoryViewHolder(categories.get(position), (ExpandableListView) viewGroup,
+                position, viewHolder);
         return view;
-    }
-
-    private void setupCategoryViewHolder(Category category, CategoryViewHolder viewHolder) {
-        viewHolder.nameTv.setText(category.getName());
-        viewHolder.itemCb.setSelected(category.isChecked());
-        if (category.isExpanded()) {
-            viewHolder.arrowIv.setBackgroundResource(R.drawable.ic_arrow_drop_up_black_24dp);
-        } else {
-            viewHolder.arrowIv.setBackgroundResource(R.drawable.ic_arrow_drop_down_black_24dp);
-        }
-        viewHolder.itemCl.setOnClickListener(v -> onCategoryClick.onNext(category));
-        viewHolder.itemCb.setOnClickListener(view -> onCategoryCheckBoxClick.onNext(category));
     }
 
     @Override
@@ -107,12 +98,6 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         setupSubcategoryViewHolder(categories.get(groupPosition).getSubcategories()
                 .get(childPosition), viewHolder);
         return view;
-    }
-
-    private void setupSubcategoryViewHolder(Category subcategory, SubcategoryViewHolder viewHolder) {
-        viewHolder.nameTv.setText(subcategory.getName());
-        viewHolder.itemCb.setSelected(subcategory.isChecked());
-        viewHolder.itemCb.setOnClickListener(view -> onCategoryCheckBoxClick.onNext(subcategory));
     }
 
     @Override
@@ -135,11 +120,36 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         categories.get(groupPosition).setExpanded(true);
     }
 
+    private void setupCategoryViewHolder(Category category, ExpandableListView viewGroup,
+                                         int position, CategoryViewHolder viewHolder) {
+        viewHolder.nameTv.setText(category.getName().toLowerCase());
+        viewHolder.itemCb.setChecked(category.isChecked());
+        if (category.isExpanded()) {
+            viewHolder.arrowIv.setBackgroundResource(R.drawable.ic_arrow_up);
+            viewGroup.expandGroup(position);
+        } else {
+            viewHolder.arrowIv.setBackgroundResource(R.drawable.ic_arrow_down);
+            viewGroup.collapseGroup(position);
+        }
+        viewHolder.itemCl.setOnClickListener(v -> onCategoryClick.onNext(category));
+        viewHolder.itemCb.setOnClickListener(view -> onCategoryCheckBoxClick.onNext(category));
+    }
+
+    private void setupSubcategoryViewHolder(Category subcategory, SubcategoryViewHolder viewHolder) {
+        viewHolder.nameTv.setText(subcategory.getName());
+        viewHolder.itemCb.setChecked(subcategory.isChecked());
+        viewHolder.itemCb.setOnClickListener(view -> onSubcategoryCheckBoxClick.onNext(subcategory));
+    }
+
     public PublishSubject<Category> getOnCategoryClick() {
         return onCategoryClick;
     }
 
     public PublishSubject<Category> getOnCategoryCheckBoxClick() {
         return onCategoryCheckBoxClick;
+    }
+
+    public PublishSubject<Category> getOnSubcategoryCheckBoxClick() {
+        return onSubcategoryCheckBoxClick;
     }
 }
