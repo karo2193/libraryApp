@@ -12,12 +12,8 @@
 
         <ImageView
             android:id="@+id/search_refresh_iv"
-            android:layout_width="@dimen/image_default_size"
-            android:layout_height="@dimen/image_default_size"
-            android:src="@drawable/ic_refresh"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            style="@style/IconToolbarStyle"
+            android:src="@drawable/ic_refresh"/>
 
         <TextView
             style="@style/TextToolbarDefaultStyle"
@@ -28,12 +24,8 @@
 
         <ImageView
             android:id="@+id/search_delete_iv"
-            android:layout_width="@dimen/image_default_size"
-            android:layout_height="@dimen/image_default_size"
-            android:src="@drawable/ic_delete"
-            android:layout_marginRight="@dimen/margin_default"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            style="@style/IconToolbarStyle"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:src="@drawable/ic_delete"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.Toolbar>

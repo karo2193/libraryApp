@@ -66,9 +66,7 @@ public class CategoryActivity extends BaseActivity<CategoryContract.View, Catego
         if (intent != null) {
             categories = intent.getParcelableArrayListExtra(SearchActivity.CATEGORY_LIST_EXTRA);
             adapter = new CategoryAdapter(categories);
-            setupOnCategoryClick(adapter);
-            setupOnCategoryCheckBoxClick(adapter);
-            setupOnSubcategoryCheckBoxClick(adapter);
+            handleOnClickEvents();
             categoryLv.setAdapter(adapter);
         }
     }
@@ -91,14 +89,14 @@ public class CategoryActivity extends BaseActivity<CategoryContract.View, Catego
         return 0;
     }
 
+    private void handleOnClickEvents() {
+        setupOnCategoryClick(adapter);
+        setupOnCategoryCheckBoxClick(adapter);
+    }
+
     private void setupOnCategoryCheckBoxClick(CategoryAdapter adapter) {
         adapter.getOnCategoryCheckBoxClick().subscribe(category
                 -> category.setChecked(!category.isChecked()));
-    }
-
-    private void setupOnSubcategoryCheckBoxClick(CategoryAdapter adapter) {
-        adapter.getOnSubcategoryCheckBoxClick().subscribe(subcategory
-                -> subcategory.setChecked(!subcategory.isChecked()));
     }
 
     private void setupOnCategoryClick(CategoryAdapter adapter) {

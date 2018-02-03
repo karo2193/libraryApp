@@ -53,6 +53,14 @@
         <item name="android:textColor">@color/textColor</item>
     </style>
 
+    <style name="IconToolbarStyle">
+        <item name="android:layout_width">@dimen/image_default_size</item>
+        <item name="android:layout_height">@dimen/image_default_size</item>
+        <item name="layout_constraintLeft_toLeftOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+    </style>
+
     <style name="IconDefaultStyle">
         <item name="android:layout_height">@dimen/image_default_size</item>
         <item name="android:layout_width">wrap_content</item>
@@ -112,6 +120,16 @@
         <item name="android:ellipsize">end</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+    <style name="DictionaryDialogTextStyle" parent="TextMediumStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/search_component_height</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">@dimen/padding_default</item>
+        <item name="android:paddingLeft">@dimen/padding_default</item>
+        <item name="android:paddingEnd">@dimen/padding_default</item>
+        <item name="android:paddingRight">@dimen/padding_default</item>
     </style>
 
     <style name="SearchEditTextHintStyle" parent="TextAppearance.Design.Hint">

@@ -24,7 +24,6 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
     private List<Category> categories = new ArrayList<>();
     private PublishSubject<Category> onCategoryClick = PublishSubject.create();
     private PublishSubject<Category> onCategoryCheckBoxClick = PublishSubject.create();
-    private PublishSubject<Category> onSubcategoryCheckBoxClick = PublishSubject.create();
 
     public CategoryAdapter(List<Category> categories) {
         this.categories = categories;
@@ -124,6 +123,21 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
                                          int position, CategoryViewHolder viewHolder) {
         viewHolder.nameTv.setText(category.getName().toLowerCase());
         viewHolder.itemCb.setChecked(category.isChecked());
+        setupArrowIv(category, viewGroup, position, viewHolder);
+        viewHolder.itemCl.setOnClickListener(v -> onCategoryClick.onNext(category));
+        viewHolder.itemCb.setOnClickListener(view -> onCategoryCheckBoxClick.onNext(category));
+    }
+
+    private void setupArrowIv(Category category, ExpandableListView viewGroup, int position, CategoryViewHolder viewHolder) {
+        if(category.getSubcategories() == null || category.getSubcategories().isEmpty()) {
+            viewHolder.arrowIv.setBackgroundResource(0);
+        } else {
+            handleExpanding(category, viewGroup, position, viewHolder);
+        }
+    }
+
+    private void handleExpanding(Category category, ExpandableListView viewGroup, int position,
+                                 CategoryViewHolder viewHolder) {
         if (category.isExpanded()) {
             viewHolder.arrowIv.setBackgroundResource(R.drawable.ic_arrow_up);
             viewGroup.expandGroup(position);
@@ -131,14 +145,12 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
             viewHolder.arrowIv.setBackgroundResource(R.drawable.ic_arrow_down);
             viewGroup.collapseGroup(position);
         }
-        viewHolder.itemCl.setOnClickListener(v -> onCategoryClick.onNext(category));
-        viewHolder.itemCb.setOnClickListener(view -> onCategoryCheckBoxClick.onNext(category));
     }
 
     private void setupSubcategoryViewHolder(Category subcategory, SubcategoryViewHolder viewHolder) {
         viewHolder.nameTv.setText(subcategory.getName());
         viewHolder.itemCb.setChecked(subcategory.isChecked());
-        viewHolder.itemCb.setOnClickListener(view -> onSubcategoryCheckBoxClick.onNext(subcategory));
+        viewHolder.itemCb.setOnClickListener(view -> onCategoryCheckBoxClick.onNext(subcategory));
     }
 
     public PublishSubject<Category> getOnCategoryClick() {
@@ -147,9 +159,5 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
 
     public PublishSubject<Category> getOnCategoryCheckBoxClick() {
         return onCategoryCheckBoxClick;
-    }
-
-    public PublishSubject<Category> getOnSubcategoryCheckBoxClick() {
-        return onSubcategoryCheckBoxClick;
     }
 }

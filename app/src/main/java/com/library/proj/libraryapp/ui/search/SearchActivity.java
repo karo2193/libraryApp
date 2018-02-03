@@ -193,10 +193,30 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     }
 
     private void clearAllButtons() {
+        clearDictionaryItems();
+        clearCategories();
+    }
+
+    private void clearDictionaryItems() {
         selectedType = "";
         searchTypeBtn.setText(getResources().getString(R.string.search_type));
         selectedAvailability = "";
         searchAvailabilityBtn.setText(getResources().getString(R.string.search_availability));
+    }
+
+    private void clearCategories() {
+        for(Category category : categories) {
+            category.setChecked(false);
+            category.setExpanded(false);
+            clearSubcategories(category);
+        }
+        searchCategoryBtn.setText(getResources().getString(R.string.search_category));
+    }
+
+    private void clearSubcategories(Category category) {
+        for(Category subcategory: category.getSubcategories()) {
+            subcategory.setChecked(false);
+        }
     }
 
     private BookRequestFilters getBookRequestFilters() {
