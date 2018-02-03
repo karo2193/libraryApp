@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 
 import com.library.proj.libraryapp.R;
 import com.library.proj.libraryapp.data.model.Category;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.subjects.PublishSubject;
@@ -19,7 +21,7 @@ import io.reactivex.subjects.PublishSubject;
 
 public class CategoryAdapter extends BaseExpandableListAdapter {
 
-    private List<Category> categories;
+    private List<Category> categories = new ArrayList<>();
     private PublishSubject<Category> onCategoryClick = PublishSubject.create();
     private PublishSubject<Category> onCategoryCheckBoxClick = PublishSubject.create();
 
@@ -74,20 +76,9 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         } else {
             viewHolder = (CategoryViewHolder) view.getTag();
         }
-        setupCategoryViewHolder(categories.get(position), viewHolder);
+        setupCategoryViewHolder(categories.get(position), (ExpandableListView) viewGroup,
+                position, viewHolder);
         return view;
-    }
-
-    private void setupCategoryViewHolder(Category category, CategoryViewHolder viewHolder) {
-        viewHolder.nameTv.setText(category.getName());
-        viewHolder.itemCb.setSelected(category.isChecked());
-        if (category.isExpanded()) {
-            viewHolder.arrowIv.setBackgroundResource(R.drawable.ic_arrow_drop_up_black_24dp);
-        } else {
-            viewHolder.arrowIv.setBackgroundResource(R.drawable.ic_arrow_drop_down_black_24dp);
-        }
-        viewHolder.itemCl.setOnClickListener(v -> onCategoryClick.onNext(category));
-        viewHolder.itemCb.setOnClickListener(view -> onCategoryCheckBoxClick.onNext(category));
     }
 
     @Override
@@ -108,12 +99,6 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         return view;
     }
 
-    private void setupSubcategoryViewHolder(Category subcategory, SubcategoryViewHolder viewHolder) {
-        viewHolder.nameTv.setText(subcategory.getName());
-        viewHolder.itemCb.setSelected(subcategory.isChecked());
-        viewHolder.itemCb.setOnClickListener(view -> onCategoryCheckBoxClick.onNext(subcategory));
-    }
-
     @Override
     public boolean isChildSelectable(int i, int i1) {
         return true;
@@ -132,6 +117,40 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
     @Override
     public void onGroupExpanded(int groupPosition) {
         categories.get(groupPosition).setExpanded(true);
+    }
+
+    private void setupCategoryViewHolder(Category category, ExpandableListView viewGroup,
+                                         int position, CategoryViewHolder viewHolder) {
+        viewHolder.nameTv.setText(category.getName().toLowerCase());
+        viewHolder.itemCb.setChecked(category.isChecked());
+        setupArrowIv(category, viewGroup, position, viewHolder);
+        viewHolder.itemCl.setOnClickListener(v -> onCategoryClick.onNext(category));
+        viewHolder.itemCb.setOnClickListener(view -> onCategoryCheckBoxClick.onNext(category));
+    }
+
+    private void setupArrowIv(Category category, ExpandableListView viewGroup, int position, CategoryViewHolder viewHolder) {
+        if(category.getSubcategories() == null || category.getSubcategories().isEmpty()) {
+            viewHolder.arrowIv.setBackgroundResource(0);
+        } else {
+            handleExpanding(category, viewGroup, position, viewHolder);
+        }
+    }
+
+    private void handleExpanding(Category category, ExpandableListView viewGroup, int position,
+                                 CategoryViewHolder viewHolder) {
+        if (category.isExpanded()) {
+            viewHolder.arrowIv.setBackgroundResource(R.drawable.ic_arrow_up);
+            viewGroup.expandGroup(position);
+        } else {
+            viewHolder.arrowIv.setBackgroundResource(R.drawable.ic_arrow_down);
+            viewGroup.collapseGroup(position);
+        }
+    }
+
+    private void setupSubcategoryViewHolder(Category subcategory, SubcategoryViewHolder viewHolder) {
+        viewHolder.nameTv.setText(subcategory.getName());
+        viewHolder.itemCb.setChecked(subcategory.isChecked());
+        viewHolder.itemCb.setOnClickListener(view -> onCategoryCheckBoxClick.onNext(subcategory));
     }
 
     public PublishSubject<Category> getOnCategoryClick() {

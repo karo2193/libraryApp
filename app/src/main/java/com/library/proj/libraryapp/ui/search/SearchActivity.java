@@ -3,16 +3,15 @@ package com.library.proj.libraryapp.ui.search;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.library.proj.libraryapp.R;
 import com.library.proj.libraryapp.data.model.BookRequestFilters;
+import com.library.proj.libraryapp.data.model.Category;
+import com.library.proj.libraryapp.data.model.CategoryResponse;
 import com.library.proj.libraryapp.data.model.Dictionary;
 import com.library.proj.libraryapp.di.component.ActivityComponent;
 import com.library.proj.libraryapp.di.module.SearchModule;
@@ -21,7 +20,6 @@ import com.library.proj.libraryapp.ui.book.BookActivity;
 import com.library.proj.libraryapp.ui.category.CategoryActivity;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,10 +27,16 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.library.proj.libraryapp.ui.category.CategoryActivity.ON_BACK_CATEGORIES_EXTRA;
+import static com.library.proj.libraryapp.ui.category.CategoryActivity.ON_BACK_RESULT_CODE;
+import static com.library.proj.libraryapp.ui.search.DictionaryDialog.BOOK_AVAILABILITY_MODE;
+import static com.library.proj.libraryapp.ui.search.DictionaryDialog.BOOK_TYPES_MODE;
+
 public class SearchActivity extends BaseActivity<SearchContract.View, SearchPresenter>
         implements SearchContract.View {
 
     public static final String BOOK_FILTERS_EXTRA = "bookFiltersExtra";
+    public static final String CATEGORY_LIST_EXTRA = "categoryListExtra";
 
     @BindView(R.id.search_toolbar)
     Toolbar toolbar;
@@ -42,60 +46,74 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     EditText searchAuthorEt;
     @BindView(R.id.search_inventory_number_et)
     EditText searchInventoryNumberEt;
+    @BindView(R.id.search_signature_et)
+    EditText searchSignatureEt;
     @BindView(R.id.search_main_signature_et)
     EditText searchMainSignatureEt;
     @BindView(R.id.search_year_et)
     EditText searchYearEt;
     @BindView(R.id.search_volume_et)
     EditText searchVolumeEt;
-    @BindView(R.id.search_type_spn)
-    Spinner searchTypeSpn;
-    @BindView(R.id.search_availability_spn)
-    Spinner searchAvailabilitySpn;
+    @BindView(R.id.search_type_btn)
+    Button searchTypeBtn;
+    @BindView(R.id.search_availability_btn)
+    Button searchAvailabilityBtn;
     @BindView(R.id.search_category_btn)
     Button searchCategoryBtn;
-    @BindView(R.id.search_clear_btn)
-    Button searchClearBtn;
-    @BindView(R.id.search_search_btn)
-    Button searchSearchBtn;
+
     @BindViews({R.id.search_title_et, R.id.search_author_et, R.id.search_inventory_number_et,
-            R.id.search_main_signature_et, R.id.search_volume_et})
+            R.id.search_signature_et, R.id.search_main_signature_et, R.id.search_year_et,
+            R.id.search_volume_et})
     List<EditText> allEtFields;
 
     private String selectedType;
     private String selectedAvailability;
+    private Dictionary dictionary;
+    private ArrayList<Category> categories = new ArrayList<>();
 
-    @OnClick(R.id.search_clear_btn)
+    @OnClick(R.id.search_refresh_iv)
+    public void onRefreshClick() {
+        downloadData();
+    }
+
+    @OnClick(R.id.search_delete_iv)
     public void onClearClick() {
         clearAllFields();
     }
 
-    @OnClick(R.id.search_category_btn)
-    public void onCategoryClick() {
-        startActivity(new Intent(this, CategoryActivity.class));
+    @OnClick(R.id.search_type_btn)
+    public void onTypeClick() {
+        if (isDictionaryTypeEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.search_no_directory_items), Toast.LENGTH_LONG).show();
+        } else {
+            openDictionaryDialogInTypesMode();
+        }
     }
 
-    @OnClick(R.id.search_search_btn)
+    @OnClick(R.id.search_availability_btn)
+    public void onAvailabilityClick() {
+        if (isDictionaryAvailabilityEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.search_no_directory_items), Toast.LENGTH_LONG).show();
+        } else {
+            openDictionaryDialogInAvailabilityMode();
+        }
+    }
+
+    @OnClick(R.id.search_category_btn)
+    public void onCategoryClick() {
+        if(categories.isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.search_no_directory_items), Toast.LENGTH_LONG).show();
+        } else {
+            openCategoryActivity();
+        }
+    }
+
+    @OnClick(R.id.search_btn)
     public void onSearchClick() {
         BookRequestFilters bookRequestFilters = getBookRequestFilters();
         Intent intent = new Intent(this, BookActivity.class);
         intent.putExtra(BOOK_FILTERS_EXTRA, bookRequestFilters);
         startActivity(intent);
-    }
-
-    @Override
-    protected int getLayoutRes() {
-        return R.layout.activity_search;
-    }
-
-    @Override
-    protected void performFieldInjection(ActivityComponent activityComponent) {
-        activityComponent.addModule(new SearchModule()).inject(this);
-    }
-
-    @Override
-    protected int getFragmentContainer() {
-        return 0;
     }
 
     @Override
@@ -105,13 +123,26 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getPresenter().getDictionary();
+        downloadData();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ON_BACK_RESULT_CODE && resultCode == RESULT_OK && data != null) {
+            categories = data.getParcelableArrayListExtra(ON_BACK_CATEGORIES_EXTRA);
+            setCategoryButtonText();
+        }
+    }
+
+    @Override
+    protected void performFieldInjection(ActivityComponent activityComponent) {
+        activityComponent.addModule(new SearchModule()).inject(this);
     }
 
     @Override
     public void processDictionary(Dictionary dictionary) {
-        setupTypeSpinner(dictionary.getBookTypesList());
-        setupAvailabilitySpinner(dictionary.getBookAvailabilitiesList());
+        this.dictionary = dictionary;
     }
 
     @Override
@@ -120,52 +151,39 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
                 getResources().getString(R.string.dictionary_error), Toast.LENGTH_LONG).show();
     }
 
-    private void setupTypeSpinner(List<String> bookTypesList) {
-        ArrayAdapter<String> typesAdapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, bookTypesList);
-        typesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        searchTypeSpn.setAdapter(typesAdapter);
-        searchTypeSpn.setOnItemSelectedListener(getOnTypeSelectedListener());
+    @Override
+    public void processCategories(List<CategoryResponse> categoryResponses) {
+        categories.clear();
+        for(CategoryResponse categoryResponse : categoryResponses) {
+            categoryResponse.setCategorySubcategories();
+            categories.add(categoryResponse.getCategory());
+        }
     }
 
-    private AdapterView.OnItemSelectedListener getOnTypeSelectedListener() {
-        return new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                selectedType = searchTypeSpn.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        };
+    @Override
+    public void onAllCategoriesError(Throwable throwable) {
+        Toast.makeText(getApplicationContext(),
+                getResources().getString(R.string.categories_error), Toast.LENGTH_LONG).show();
     }
 
-    private void setupAvailabilitySpinner(List<String> bookAvailabilitiesList) {
-        ArrayAdapter<String> availabilityAdapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, bookAvailabilitiesList);
-        availabilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        searchAvailabilitySpn.setAdapter(availabilityAdapter);
-        searchAvailabilitySpn.setOnItemSelectedListener(getOnAvailabilitySelectedListener());
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_search;
     }
 
-    private AdapterView.OnItemSelectedListener getOnAvailabilitySelectedListener() {
-        return new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                selectedAvailability = searchAvailabilitySpn.getItemAtPosition(position).toString();
-            }
+    @Override
+    protected int getFragmentContainer() {
+        return 0;
+    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        };
+    private void downloadData() {
+        getPresenter().getDictionary();
+        getPresenter().getAllCategories();
     }
 
     private void clearAllFields() {
         clearAllEtFields();
+        clearAllButtons();
     }
 
     private void clearAllEtFields() {
@@ -174,16 +192,111 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         }
     }
 
+    private void clearAllButtons() {
+        clearDictionaryItems();
+        clearCategories();
+    }
+
+    private void clearDictionaryItems() {
+        selectedType = "";
+        searchTypeBtn.setText(getResources().getString(R.string.search_type));
+        selectedAvailability = "";
+        searchAvailabilityBtn.setText(getResources().getString(R.string.search_availability));
+    }
+
+    private void clearCategories() {
+        for(Category category : categories) {
+            category.setChecked(false);
+            category.setExpanded(false);
+            clearSubcategories(category);
+        }
+        searchCategoryBtn.setText(getResources().getString(R.string.search_category));
+    }
+
+    private void clearSubcategories(Category category) {
+        for(Category subcategory: category.getSubcategories()) {
+            subcategory.setChecked(false);
+        }
+    }
+
     private BookRequestFilters getBookRequestFilters() {
         BookRequestFilters bookRequestFilters = new BookRequestFilters();
         bookRequestFilters.setTitle(searchTitleEt.getText().toString().trim());
         bookRequestFilters.setResponsibility(searchAuthorEt.getText().toString().trim());
         bookRequestFilters.setIsbnWithIssn(searchInventoryNumberEt.getText().toString().trim());
+        bookRequestFilters.setFacultySignature(searchSignatureEt.getText().toString().trim());
         bookRequestFilters.setMainSignature(searchMainSignatureEt.getText().toString().trim());
         bookRequestFilters.setYear(Integer.getInteger(searchYearEt.getText().toString().trim()));
         bookRequestFilters.setVolume(searchVolumeEt.getText().toString().trim());
         bookRequestFilters.setType(selectedType);
         bookRequestFilters.setAvailability(selectedAvailability);
         return bookRequestFilters;
+    }
+
+    private void openDictionaryDialogInTypesMode() {
+        DictionaryDialog dictionaryDialog = new DictionaryDialog(this,
+                dictionary.getBookTypesList(), BOOK_TYPES_MODE);
+        dictionaryDialog.setOnDictionaryDialogResult(result -> {
+            selectedType = result;
+            searchTypeBtn.setText(result);
+        });
+        dictionaryDialog.show();
+    }
+
+    private void openDictionaryDialogInAvailabilityMode() {
+        DictionaryDialog dictionaryDialog = new DictionaryDialog(this,
+                dictionary.getBookAvailabilitiesList(), BOOK_AVAILABILITY_MODE);
+        dictionaryDialog.setOnDictionaryDialogResult(result -> {
+            selectedAvailability = result;
+            searchAvailabilityBtn.setText(result);
+        });
+        dictionaryDialog.show();
+    }
+
+    private void openCategoryActivity() {
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putParcelableArrayListExtra(CATEGORY_LIST_EXTRA, categories);
+        startActivityForResult(intent, ON_BACK_RESULT_CODE);
+    }
+
+    private void setCategoryButtonText() {
+        int selectedCategories = getSelectedCategories();
+        if(selectedCategories == 0) {
+            searchCategoryBtn.setText(getResources().getString(R.string.search_category));
+        } else {
+            searchCategoryBtn.setText(getResources()
+                    .getString(R.string.search_category_selected, selectedCategories));
+        }
+    }
+
+    private int getSelectedCategories() {
+        int selectedCategories = 0;
+        for(Category category : categories) {
+            if(category.isChecked()) {
+                selectedCategories++;
+            }
+            selectedCategories += getSelectedSubcategories(category);
+        }
+        return selectedCategories;
+    }
+
+    private int getSelectedSubcategories(Category category) {
+        int selectedSubcategories = 0;
+        for(Category subcategory : category.getSubcategories()) {
+            if(subcategory.isChecked()) {
+                selectedSubcategories++;
+            }
+        }
+        return selectedSubcategories;
+    }
+
+    private boolean isDictionaryTypeEmpty() {
+        return dictionary == null || dictionary.getBookTypesList() == null
+                || dictionary.getBookTypesList().isEmpty();
+    }
+
+    private boolean isDictionaryAvailabilityEmpty() {
+        return dictionary == null || dictionary.getBookAvailabilitiesList() == null
+                || dictionary.getBookAvailabilitiesList().isEmpty();
     }
 }

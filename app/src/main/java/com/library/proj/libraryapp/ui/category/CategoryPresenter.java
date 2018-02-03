@@ -16,12 +16,4 @@ public class CategoryPresenter extends Presenter<CategoryContract.View> implemen
     public CategoryPresenter(UseCaseFactory useCaseFactory) {
         this.useCaseFactory = useCaseFactory;
     }
-
-    @Override
-    public void getAllCategories() {
-        Disposable disposable = useCaseFactory.getAllCategoriesUseCase()
-                .execute()
-                .subscribe(view::processCategories, view::onAllCategoriesError);
-        compositeDisposable.add(disposable);
-    }
 }

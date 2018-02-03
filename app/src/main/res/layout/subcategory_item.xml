@@ -3,30 +3,20 @@
     android:id="@+id/subcategory_item_cl"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_default">
+    style="@style/CategoryLayoutStyle"
+    android:layout_height="@dimen/subcategory_item_height">
 
     <CheckBox
         android:id="@+id/subcategory_item_cb"
-        android:layout_width="@dimen/image_default_size"
-        android:layout_height="@dimen/image_default_size"
-        android:layout_marginRight="@dimen/margin_default"
-        android:layout_marginTop="@dimen/margin_default"
-        android:layout_marginBottom="@dimen/margin_default"
-        android:layout_marginLeft="@dimen/subcategory_item_margin_left"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/subcategory_item_name_tv"
-        app:layout_constraintTop_toTopOf="parent"/>
+        style="@style/CategoryCheckBoxStyle"
+        android:layout_marginStart="@dimen/margin_default"
+        app:layout_constraintRight_toLeftOf="@id/subcategory_item_name_tv"/>
 
     <TextView
         android:id="@+id/subcategory_item_name_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/CategoryTextViewStyle"
+        android:textSize="@dimen/text_small_size"
         app:layout_constraintLeft_toRightOf="@id/subcategory_item_cb"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="@dimen/dialog_min_width"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/dictionary_title_tv"
+        style="@style/DictionaryDialogTextStyle"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/search_availability"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/dictionary_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dictionary_title_tv"/>
+
+</android.support.constraint.ConstraintLayout>

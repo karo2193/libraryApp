@@ -1,15 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-	<dimen name="search_component_height">150dp</dimen>
-	<dimen name="padding_small">15dp</dimen>
-	<dimen name="padding_default">30dp</dimen>
-	<dimen name="margin_default">30dp</dimen>
-	<dimen name="margin_small">15dp</dimen>
-	<dimen name="image_default_size">72dp</dimen>
-	<dimen name="subcategory_item_margin_left">90dp</dimen>
-	<dimen name="text_small_size">42sp</dimen>
-	<dimen name="text_medium_size">54sp</dimen>
-	<dimen name="text_large_size">66sp</dimen>
-	<dimen name="divider_height">12dp</dimen>
-	<dimen name="image_logo_size">450dp</dimen>
-	<dimen name="text_extra_large_size">132sp</dimen>
+    <dimen name="check_box_size">30dp</dimen>
+
+    <dimen name="dialog_min_width">240dp</dimen>
+
+    <dimen name="divider_height">12dp</dimen>
+    <dimen name="divider_height_subcategory">6dp</dimen>
+
+    <dimen name="elevation_default">4dp</dimen>
+    <dimen name="elevation_big">8dp</dimen>
+
+    <dimen name="image_default_size">72dp</dimen>
+    <dimen name="image_logo_size">450dp</dimen>
+
+    <dimen name="margin_default_big">15dp</dimen>
+    <dimen name="margin_default">30dp</dimen>
+    <dimen name="margin_small">15dp</dimen>
+
+    <dimen name="padding_big">20dp</dimen>
+    <dimen name="padding_default">30dp</dimen>
+    <dimen name="padding_small">15dp</dimen>
+
+    <dimen name="search_component_height">150dp</dimen>
+
+    <dimen name="subcategory_item_margin_left">20dp</dimen>
+    <dimen name="subcategory_item_height">60dp</dimen>
+
+    <dimen name="text_extra_large_size">132sp</dimen>
+    <dimen name="text_large_size">66sp</dimen>
+    <dimen name="text_medium_size">54sp</dimen>
+    <dimen name="text_small_size">42sp</dimen>
 </resources>
