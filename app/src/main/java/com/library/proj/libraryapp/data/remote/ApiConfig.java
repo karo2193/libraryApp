@@ -10,14 +10,14 @@ public class ApiConfig {
     public static final String HOST_DEV = "http://szymongor.pythonanywhere.com/";
 
     static class Book {
-        final static String PATH = "ksiazka";
+        final static String PATH = "books";
     }
 
     static class Category {
-        final static String PATH = "kategorie";
+        final static String PATH = "categories";
     }
 
     static class Dictionary {
-        final static String PATH = "slownik";
+        final static String PATH = "dictionary";
     }
 }

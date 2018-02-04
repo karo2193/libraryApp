@@ -79,7 +79,7 @@ public class RemoteDataModule {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(ApiConfig.HOST_DEV)
+                .baseUrl(ApiConfig.HOST)
                 .client(okHttpClient)
                 .build();
     }

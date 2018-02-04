@@ -12,10 +12,10 @@ import java.util.List;
 
 public class Dictionary {
 
-    @SerializedName("typ")
+    @SerializedName("types")
     @Expose
     private String[] bookTypes;
-    @SerializedName("dostepnosc")
+    @SerializedName("availability_types")
     @Expose
     private String[] bookAvailabilities;
 

@@ -12,31 +12,31 @@ import com.google.gson.annotations.SerializedName;
 
 public class BookRequestFilters implements Parcelable {
 
-    @SerializedName("syg_ms__contains")
+    @SerializedName("signature_ms__contains")
     @Expose
     private String facultySignature;
-    @SerializedName("syg_bg__contains")
+    @SerializedName("signature_bg__contains")
     @Expose
     private String mainSignature;
-    @SerializedName("ozn_opdow__contains")
+    @SerializedName("responsibility__contains")
     @Expose
     private String responsibility;
-    @SerializedName("tytul__contains")
+    @SerializedName("title__contains")
     @Expose
     private String title;
-    @SerializedName("tom__contains")
+    @SerializedName("volume__contains")
     @Expose
     private String volume;
-    @SerializedName("rok__contains")
+    @SerializedName("year__contains")
     @Expose
     private Integer year;
     @SerializedName("isbn_issn__contains")
     @Expose
     private String isbnWithIssn;
-    @SerializedName("typ__contains")
+    @SerializedName("type__contains")
     @Expose
     private String type;
-    @SerializedName("dostepnosc__contains")
+    @SerializedName("availability__contains")
     @Expose
     private String availability;
 

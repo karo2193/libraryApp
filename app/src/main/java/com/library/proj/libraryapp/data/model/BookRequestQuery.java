@@ -14,7 +14,7 @@ public class BookRequestQuery {
     @SerializedName("filters")
     @Expose
     private BookRequestFilters filters;
-    @SerializedName("kategorie")
+    @SerializedName("categories")
     @Expose
     private List<Category> categories;
     @SerializedName("pagination")

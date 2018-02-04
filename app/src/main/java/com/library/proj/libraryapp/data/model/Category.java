@@ -15,10 +15,10 @@ import java.util.List;
 
 public class Category implements Parcelable {
 
-    @SerializedName("id_kategorii")
+    @SerializedName("category_id")
     @Expose
     private String categoryId;
-    @SerializedName("kategoria")
+    @SerializedName("category_name")
     @Expose
     private String name;
 
