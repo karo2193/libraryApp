@@ -36,6 +36,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         implements SearchContract.View {
 
     public static final String BOOK_FILTERS_EXTRA = "bookFiltersExtra";
+    public static final String BOOK_CATEGORIES_EXTRA = "bookCategoriesExtra";
     public static final String CATEGORY_LIST_EXTRA = "categoryListExtra";
 
     @BindView(R.id.search_toolbar)
@@ -70,6 +71,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     private String selectedAvailability;
     private Dictionary dictionary;
     private ArrayList<Category> categories = new ArrayList<>();
+    private List<String> selectedCategoriesIds = new ArrayList<>();
 
     @OnClick(R.id.search_refresh_iv)
     public void onRefreshClick() {
@@ -111,8 +113,11 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     @OnClick(R.id.search_btn)
     public void onSearchClick() {
         BookRequestFilters bookRequestFilters = getBookRequestFilters();
+        String[] selectedCategories = selectedCategoriesIds
+                .toArray(new String[selectedCategoriesIds.size()]);
         Intent intent = new Intent(this, BookActivity.class);
         intent.putExtra(BOOK_FILTERS_EXTRA, bookRequestFilters);
+        intent.putExtra(BOOK_CATEGORIES_EXTRA, selectedCategories);
         startActivity(intent);
     }
 
@@ -260,34 +265,31 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     }
 
     private void setCategoryButtonText() {
-        int selectedCategories = getSelectedCategories();
-        if(selectedCategories == 0) {
+        setupSelectedCategories();
+        if(selectedCategoriesIds.isEmpty()) {
             searchCategoryBtn.setText(getResources().getString(R.string.search_category));
         } else {
             searchCategoryBtn.setText(getResources()
-                    .getString(R.string.search_category_selected, selectedCategories));
+                    .getString(R.string.search_category_selected, selectedCategoriesIds.size()));
         }
     }
 
-    private int getSelectedCategories() {
-        int selectedCategories = 0;
+    private void setupSelectedCategories() {
+        selectedCategoriesIds.clear();
         for(Category category : categories) {
             if(category.isChecked()) {
-                selectedCategories++;
+                selectedCategoriesIds.add(category.getCategoryId());
             }
-            selectedCategories += getSelectedSubcategories(category);
+            setupSelectedSubcategories(category);
         }
-        return selectedCategories;
     }
 
-    private int getSelectedSubcategories(Category category) {
-        int selectedSubcategories = 0;
+    private void setupSelectedSubcategories(Category category) {
         for(Category subcategory : category.getSubcategories()) {
             if(subcategory.isChecked()) {
-                selectedSubcategories++;
+                selectedCategoriesIds.add(subcategory.getCategoryId());
             }
         }
-        return selectedSubcategories;
     }
 
     private boolean isDictionaryTypeEmpty() {

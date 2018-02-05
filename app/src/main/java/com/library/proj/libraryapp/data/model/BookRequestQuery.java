@@ -16,7 +16,7 @@ public class BookRequestQuery {
     private BookRequestFilters filters;
     @SerializedName("categories")
     @Expose
-    private List<Category> categories;
+    private String[] categories;
     @SerializedName("pagination")
     @Expose
     private BookRequestPagination pagination;
@@ -29,11 +29,11 @@ public class BookRequestQuery {
         this.filters = filters;
     }
 
-    public List<Category> getCategories() {
+    public String[] getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(String[] categories) {
         this.categories = categories;
     }
 

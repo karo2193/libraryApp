@@ -25,6 +25,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
+import static com.library.proj.libraryapp.ui.search.SearchActivity.BOOK_CATEGORIES_EXTRA;
+
 public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
         implements BookContract.View {
 
@@ -64,7 +66,7 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
         BookRequestData bookRequestData = new BookRequestData();
         bookRequestData.getQuery().setFilters(getFilters(getIntent()));
         bookRequestData.getQuery().setPagination(getPagination());
-        bookRequestData.getQuery().setCategories(new ArrayList<Category>());
+        bookRequestData.getQuery().setCategories(getCategoriesIds(getIntent()));
         getPresenter().getBooks(bookRequestData);
     }
 
@@ -76,11 +78,19 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     }
 
     private BookRequestFilters getFilters(Intent intent) {
-        BookRequestFilters bookRequestFilters = new BookRequestFilters();
-        if (intent != null) {
-            bookRequestFilters = intent.getParcelableExtra(SearchActivity.BOOK_FILTERS_EXTRA);
+        if (intent == null) {
+            return new BookRequestFilters();
+        } else {
+            return intent.getParcelableExtra(SearchActivity.BOOK_FILTERS_EXTRA);
         }
-        return bookRequestFilters;
+    }
+
+    private String[] getCategoriesIds(Intent intent) {
+        if(intent == null) {
+            return new String[0];
+        } else {
+            return intent.getStringArrayExtra(BOOK_CATEGORIES_EXTRA);
+        }
     }
 
     @Override
