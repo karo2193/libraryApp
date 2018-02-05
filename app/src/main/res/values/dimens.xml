@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
+    <dimen name="book_item_height">120dp</dimen>
+
     <dimen name="check_box_size">30dp</dimen>
 
     <dimen name="dialog_min_width">240dp</dimen>

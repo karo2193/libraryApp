@@ -5,6 +5,7 @@
     <string name="book_details_error">Przepraszamy, coś poszło nie tak</string>
     <string name="book_details_toolbar">Znalezione książki</string>
     <string name="book_details_categories">Kategorie książki</string>
+    <string name="book_toolbar">Wyniki wyszukiwania</string>
 
     <string name="categories_error">Niestety pobranie kategorii nie powiodło się</string>
     <string name="categories_toolbar">Kategorie</string>

@@ -2,6 +2,8 @@
 <resources>
     <dimen name="a_tablet_scale">1.4</dimen>
 
+    <dimen name="book_item_height">168dp</dimen>
+
     <dimen name="check_box_size">42dp</dimen>
 
     <dimen name="dialog_min_width">336dp</dimen>

@@ -2,6 +2,7 @@ package com.library.proj.libraryapp.ui.book;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -97,6 +98,9 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     public void setupBooksRv(List<Book> books) {
         bookRv.setLayoutManager(new LinearLayoutManager(this));
         BookAdapter bookAdapter = new BookAdapter(books);
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL);
+        divider.setDrawable(getResources().getDrawable(R.drawable.divider));
+        bookRv.addItemDecoration(divider);
         bookRv.setAdapter(bookAdapter);
         bookAdapter.getOnBookClickSubject().subscribe(book -> {
             Intent intent = new Intent(this, BookDetailsActivity.class);

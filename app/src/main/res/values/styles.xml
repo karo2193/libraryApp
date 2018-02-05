@@ -46,10 +46,12 @@
     </style>
 
     <style name="TextToolbarDefaultStyle">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/margin_default</item>
         <item name="android:layout_marginStart">@dimen/margin_default</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:textSize">@dimen/text_large_size</item>
         <item name="android:textColor">@color/textColor</item>
     </style>
@@ -78,13 +80,11 @@
         <item name="layout_constraintRight_toRightOf">parent</item>
     </style>
 
-    <style name="BookDetailsTextStyle">
-        <item name="android:layout_width">match_parent</item>
+    <style name="BookDetailsTextStyle" parent="TextMediumStyle">
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_medium_size</item>
-        <item name="android:paddingLeft">@dimen/margin_default</item>
-        <item name="android:paddingStart">@dimen/margin_default</item>
-        <item name="android:paddingBottom">@dimen/margin_small</item>
+        <item name="android:layout_marginStart">@dimen/margin_default</item>
+        <item name="android:layout_marginBottom">@dimen/margin_small</item>
     </style>
 
     <style name="BookDetailsTitleTextStyle" parent="BookDetailsTextStyle">
