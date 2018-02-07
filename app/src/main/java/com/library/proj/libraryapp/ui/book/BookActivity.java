@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 import static com.library.proj.libraryapp.ui.search.SearchActivity.BOOK_CATEGORIES_EXTRA;
 
 public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
@@ -39,6 +40,8 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     RecyclerView bookRv;
 
     private int currentPage = 0;
+    private List<Book> allBooks = new ArrayList<>();
+    private BookRequestData bookRequestData = new BookRequestData();
 
     @OnClick(R.id.book_back_iv)
     public void onBackClick() {
@@ -65,23 +68,76 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
         ButterKnife.bind(this);
+        setupBooksRv();
         createBookRequestData();
     }
 
     @Override
     public void createBookRequestData() {
-        BookRequestData bookRequestData = new BookRequestData();
         bookRequestData.getQuery().setFilters(getFilters(getIntent()));
-        bookRequestData.getQuery().setPagination(getPagination());
         bookRequestData.getQuery().setCategories(getCategoriesIds(getIntent()));
+        setupPagination();
         getPresenter().getBooks(bookRequestData);
     }
 
-    private BookRequestPagination getPagination() {
+    @Override
+    public void setupBooksRv() {
+        allBooks.clear();
+        bookRv.setLayoutManager(new LinearLayoutManager(this));
+        BookAdapter bookAdapter = new BookAdapter(allBooks);
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(getResources().getDrawable(R.drawable.divider));
+        bookRv.addItemDecoration(divider);
+        bookRv.addOnScrollListener(getOnScrollListener());
+        bookRv.setAdapter(bookAdapter);
+        bookAdapter.getOnBookClickSubject().subscribe(book -> {
+            Intent intent = new Intent(this, BookDetailsActivity.class);
+            intent.putExtra(BOOK_EXTRA, book);
+            startActivity(intent);
+        });
+    }
+
+    @Override
+    public void refreshBooks(List<Book> books) {
+        allBooks.addAll(books);
+        if(bookRv.getAdapter() != null) {
+            bookRv.getAdapter().notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onBooksError(Throwable throwable) {
+        Toast.makeText(this, getResources().getString(R.string.books_error), Toast.LENGTH_LONG).show();
+        Timber.e(throwable);
+    }
+
+    private RecyclerView.OnScrollListener getOnScrollListener() {
+         return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (isScrollable(scrollState, manager)) {
+                    currentPage++;
+                    setupPagination();
+                    getPresenter().getBooks(bookRequestData);
+                }
+            }
+
+            private boolean isScrollable(int scrollState, LinearLayoutManager layoutManager) {
+                return isEndOfScrollView(layoutManager) && scrollState == SCROLL_STATE_IDLE;
+            }
+
+            private boolean isEndOfScrollView(LinearLayoutManager layoutManager) {
+                return layoutManager.findLastVisibleItemPosition() == layoutManager.getItemCount() - 1;
+            }
+        };
+    }
+
+    private void setupPagination() {
         BookRequestPagination bookRequestPagination = new BookRequestPagination();
         bookRequestPagination.setLimit(API_BOOKS_LIMIT);
         bookRequestPagination.setOffset(API_BOOKS_LIMIT * currentPage);
-        return bookRequestPagination;
+        bookRequestData.getQuery().setPagination(bookRequestPagination);
     }
 
     private BookRequestFilters getFilters(Intent intent) {
@@ -98,26 +154,5 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
         } else {
             return intent.getStringArrayExtra(BOOK_CATEGORIES_EXTRA);
         }
-    }
-
-    @Override
-    public void setupBooksRv(List<Book> books) {
-        bookRv.setLayoutManager(new LinearLayoutManager(this));
-        BookAdapter bookAdapter = new BookAdapter(books);
-        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        divider.setDrawable(getResources().getDrawable(R.drawable.divider));
-        bookRv.addItemDecoration(divider);
-        bookRv.setAdapter(bookAdapter);
-        bookAdapter.getOnBookClickSubject().subscribe(book -> {
-            Intent intent = new Intent(this, BookDetailsActivity.class);
-            intent.putExtra(BOOK_EXTRA, book);
-            startActivity(intent);
-        });
-    }
-
-    @Override
-    public void onBooksError(Throwable throwable) {
-        Toast.makeText(this, getResources().getString(R.string.books_error), Toast.LENGTH_LONG).show();
-        Timber.e(throwable);
     }
 }

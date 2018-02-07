@@ -22,7 +22,9 @@ public interface BookContract {
 
         void createBookRequestData();
 
-        void setupBooksRv(List<Book> books);
+        void setupBooksRv();
+
+        void refreshBooks(List<Book> books);
 
         void onBooksError(Throwable throwable);
     }
