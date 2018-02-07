@@ -24,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import timber.log.Timber;
 
 import static com.library.proj.libraryapp.ui.search.SearchActivity.BOOK_CATEGORIES_EXTRA;
@@ -38,6 +39,11 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     RecyclerView bookRv;
 
     private int currentPage = 0;
+
+    @OnClick(R.id.book_back_iv)
+    public void onBackClick() {
+        onBackPressed();
+    }
 
     @Override
     protected int getLayoutRes() {
@@ -98,7 +104,7 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     public void setupBooksRv(List<Book> books) {
         bookRv.setLayoutManager(new LinearLayoutManager(this));
         BookAdapter bookAdapter = new BookAdapter(books);
-        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL);
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         divider.setDrawable(getResources().getDrawable(R.drawable.divider));
         bookRv.addItemDecoration(divider);
         bookRv.setAdapter(bookAdapter);

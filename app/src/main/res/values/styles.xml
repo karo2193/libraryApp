@@ -70,6 +70,14 @@
         <item name="android:layout_marginEnd">@dimen/margin_default</item>
     </style>
 
+    <style name="BookTextStyle" parent="TextMediumStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_default</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
     <style name="BookDetailsLinearLayoutStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -88,7 +96,6 @@
     </style>
 
     <style name="BookDetailsTitleTextStyle" parent="BookDetailsTextStyle">
-        <item name="android:textColor">@color/textColor</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">@dimen/margin_small</item>
     </style>

@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/book_title_tv"
-        style="@style/TextToolbarDefaultStyle"
+        style="@style/BookTextStyle"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/book_author_tv"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -16,9 +16,7 @@
 
     <TextView
         android:id="@+id/book_author_tv"
-        style="@style/BookDetailsTextStyle"
-        android:maxLines="1"
-        android:ellipsize="end"
+        style="@style/BookTextStyle"
         app:layout_constraintBottom_toTopOf="@id/book_year_tv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/book_see_more_iv"
@@ -26,7 +24,7 @@
 
     <TextView
         android:id="@+id/book_year_tv"
-        style="@style/BookDetailsTextStyle"
+        style="@style/BookTextStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/book_see_more_iv"
@@ -34,12 +32,9 @@
 
     <ImageView
         android:id="@+id/book_see_more_iv"
-        android:layout_width="@dimen/image_default_size"
-        android:layout_height="@dimen/image_default_size"
+        style="@style/IconToolbarStyle"
         android:src="@drawable/ic_arrow_right"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/book_title_tv"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
