@@ -3,7 +3,7 @@
 
     <string name="books_error">Niestety pobranie książek nie powiodło się</string>
     <string name="book_details_error">Przepraszamy, coś poszło nie tak</string>
-    <string name="book_details_toolbar">Znalezione książki</string>
+    <string name="book_details_toolbar">Szczegóły książki</string>
     <string name="book_details_categories">Kategorie książki</string>
     <string name="book_toolbar">Wyniki wyszukiwania</string>
 

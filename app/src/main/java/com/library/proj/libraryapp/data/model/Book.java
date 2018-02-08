@@ -68,7 +68,7 @@ public class Book implements Parcelable {
         isbnWithIssn = in.readString();
         type = in.readString();
         availability = in.readString();
-        in.readList(categories, null);
+        in.readTypedList(categories, Category.CREATOR);
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {
@@ -149,6 +149,6 @@ public class Book implements Parcelable {
         parcel.writeString(isbnWithIssn);
         parcel.writeString(type);
         parcel.writeString(availability);
-        parcel.writeList(categories);
+        parcel.writeTypedList(categories);
     }
 }

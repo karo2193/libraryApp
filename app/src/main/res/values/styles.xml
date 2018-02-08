@@ -37,6 +37,12 @@
         <item name="android:elevation">@dimen/elevation_big</item>
     </style>
 
+    <style name="MainLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
     <style name="ToolbarStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
