@@ -12,6 +12,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/category_lv"/>
 
+    <include
+        android:id="@+id/book_no_books"
+        layout="@layout/book_no_books_layout"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/book_rv"
         android:layout_width="0dp"

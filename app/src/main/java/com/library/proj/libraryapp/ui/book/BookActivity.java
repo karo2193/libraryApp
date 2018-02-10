@@ -2,9 +2,12 @@ package com.library.proj.libraryapp.ui.book;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
+import android.view.View;
 import android.widget.Toast;
 
 import com.library.proj.libraryapp.R;
@@ -28,6 +31,8 @@ import butterknife.OnClick;
 import timber.log.Timber;
 
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.library.proj.libraryapp.ui.search.SearchActivity.BOOK_CATEGORIES_EXTRA;
 
 public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
@@ -38,6 +43,8 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
 
     @BindView(R.id.book_rv)
     RecyclerView bookRv;
+    @BindView(R.id.book_no_books)
+    ConstraintLayout noBooksLayout;
 
     private int currentPage = 0;
     private List<Book> allBooks = new ArrayList<>();
@@ -100,14 +107,20 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     @Override
     public void refreshBooks(List<Book> books) {
         allBooks.addAll(books);
-        if(bookRv.getAdapter() != null) {
-            bookRv.getAdapter().notifyDataSetChanged();
+        if(allBooks.isEmpty()) {
+            noBooksLayout.setVisibility(VISIBLE);
+        } else {
+            noBooksLayout.setVisibility(GONE);
+            if (bookRv.getAdapter() != null) {
+                bookRv.getAdapter().notifyDataSetChanged();
+            }
         }
     }
 
     @Override
     public void onBooksError(Throwable throwable) {
         Toast.makeText(this, getResources().getString(R.string.books_error), Toast.LENGTH_LONG).show();
+        noBooksLayout.setVisibility(VISIBLE);
         Timber.e(throwable);
     }
 
