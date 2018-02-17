@@ -29,7 +29,7 @@ public class BookRequestFilters implements Parcelable {
     private String volume;
     @SerializedName("year__contains")
     @Expose
-    private Integer year;
+    private String year;
     @SerializedName("isbn_issn__contains")
     @Expose
     private String isbnWithIssn;
@@ -50,11 +50,7 @@ public class BookRequestFilters implements Parcelable {
         responsibility = in.readString();
         title = in.readString();
         volume = in.readString();
-        if (in.readByte() == 0) {
-            year = null;
-        } else {
-            year = in.readInt();
-        }
+        year = in.readString();
         isbnWithIssn = in.readString();
         type = in.readString();
         availability = in.readString();
@@ -112,11 +108,11 @@ public class BookRequestFilters implements Parcelable {
         this.volume = volume;
     }
 
-    public Integer getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
@@ -156,12 +152,7 @@ public class BookRequestFilters implements Parcelable {
         parcel.writeString(responsibility);
         parcel.writeString(title);
         parcel.writeString(volume);
-        if (year == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(year);
-        }
+        parcel.writeString(year);
         parcel.writeString(isbnWithIssn);
         parcel.writeString(type);
         parcel.writeString(availability);

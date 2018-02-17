@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 
 import static com.library.proj.libraryapp.ui.category.CategoryActivity.ON_BACK_CATEGORIES_EXTRA;
 import static com.library.proj.libraryapp.ui.category.CategoryActivity.ON_BACK_RESULT_CODE;
@@ -35,6 +36,7 @@ import static com.library.proj.libraryapp.ui.search.DictionaryDialog.BOOK_TYPES_
 public class SearchActivity extends BaseActivity<SearchContract.View, SearchPresenter>
         implements SearchContract.View {
 
+    private static final int YEAR_LENGTH = 4;
     public static final String BOOK_FILTERS_EXTRA = "bookFiltersExtra";
     public static final String BOOK_CATEGORIES_EXTRA = "bookCategoriesExtra";
     public static final String CATEGORY_LIST_EXTRA = "categoryListExtra";
@@ -112,13 +114,15 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
 
     @OnClick(R.id.search_btn)
     public void onSearchClick() {
-        BookRequestFilters bookRequestFilters = getBookRequestFilters();
-        String[] selectedCategories = selectedCategoriesIds
-                .toArray(new String[selectedCategoriesIds.size()]);
-        Intent intent = new Intent(this, BookActivity.class);
-        intent.putExtra(BOOK_FILTERS_EXTRA, bookRequestFilters);
-        intent.putExtra(BOOK_CATEGORIES_EXTRA, selectedCategories);
-        startActivity(intent);
+        if (allFieldsAreFillCorrectly()) {
+            BookRequestFilters bookRequestFilters = getBookRequestFilters();
+            String[] selectedCategories = selectedCategoriesIds
+                    .toArray(new String[selectedCategoriesIds.size()]);
+            Intent intent = new Intent(this, BookActivity.class);
+            intent.putExtra(BOOK_FILTERS_EXTRA, bookRequestFilters);
+            intent.putExtra(BOOK_CATEGORIES_EXTRA, selectedCategories);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -231,7 +235,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
         bookRequestFilters.setIsbnWithIssn(searchInventoryNumberEt.getText().toString().trim());
         bookRequestFilters.setFacultySignature(searchSignatureEt.getText().toString().trim());
         bookRequestFilters.setMainSignature(searchMainSignatureEt.getText().toString().trim());
-        bookRequestFilters.setYear(Integer.getInteger(searchYearEt.getText().toString().trim()));
+        bookRequestFilters.setYear(searchYearEt.getText().toString().trim());
         bookRequestFilters.setVolume(searchVolumeEt.getText().toString().trim());
         bookRequestFilters.setType(selectedType);
         bookRequestFilters.setAvailability(selectedAvailability);
@@ -300,5 +304,14 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     private boolean isDictionaryAvailabilityEmpty() {
         return dictionary == null || dictionary.getBookAvailabilitiesList() == null
                 || dictionary.getBookAvailabilitiesList().isEmpty();
+    }
+
+    private boolean allFieldsAreFillCorrectly() {
+        if (searchYearEt.getText().length() != 0 && searchYearEt.getText().length() != YEAR_LENGTH) {
+            searchYearEt.requestFocus();
+            Toast.makeText(this, getResources().getString(R.string.search_wrong_year), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

@@ -28,4 +28,5 @@
     <string name="search_category_selected">Zaznaczone kategorie: %d</string>
     <string name="search_clear">Czyść</string>
     <string name="search_search">Szukaj</string>
+    <string name="search_wrong_year">Wprowadź prawidłowy rok</string>
 </resources>

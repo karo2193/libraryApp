@@ -126,7 +126,7 @@ public class BookDetailsActivity extends BaseActivity<BookDetailsContract.View, 
         fillField(inventoryNumberTv, inventoryNumberLl, book.getIsbnWithIssn());
         fillField(mainSignatureTv, mainSignatureLl, book.getMainSignature());
         fillField(facultySignatureTv, facultySignatureLl, book.getFacultySignature().toString());
-        fillField(yearTv, yearLl, book.getYear().toString());
+        fillField(yearTv, yearLl, book.getYear());
         fillField(volumeTv, volumeLl, book.getVolume());
         fillField(typeTv, typeLl, book.getType());
         fillField(availabilityTv, availabilityLl, book.getAvailability());

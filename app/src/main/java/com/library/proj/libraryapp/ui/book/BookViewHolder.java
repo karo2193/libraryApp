@@ -1,8 +1,8 @@
 package com.library.proj.libraryapp.ui.book;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.library.proj.libraryapp.R;
@@ -22,8 +22,8 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
     TextView authorTv;
     @BindView(R.id.book_year_tv)
     TextView yearTv;
-    @BindView(R.id.book_see_more_iv)
-    ImageView seeMoreIv;
+    @BindView(R.id.book_container)
+    ConstraintLayout containerCl;
 
     public BookViewHolder(View itemView) {
         super(itemView);

@@ -32,7 +32,7 @@ public class Book implements Parcelable {
     private String volume;
     @SerializedName("year")
     @Expose
-    private Integer year;
+    private String year;
     @SerializedName("isbn_issn")
     @Expose
     private String isbnWithIssn;
@@ -60,11 +60,7 @@ public class Book implements Parcelable {
         responsibility = in.readString();
         title = in.readString();
         volume = in.readString();
-        if (in.readByte() == 0) {
-            year = null;
-        } else {
-            year = in.readInt();
-        }
+        year = in.readString();
         isbnWithIssn = in.readString();
         type = in.readString();
         availability = in.readString();
@@ -103,7 +99,7 @@ public class Book implements Parcelable {
         return volume;
     }
 
-    public Integer getYear() {
+    public String getYear() {
         return year;
     }
 
@@ -140,12 +136,7 @@ public class Book implements Parcelable {
         parcel.writeString(responsibility);
         parcel.writeString(title);
         parcel.writeString(volume);
-        if (year == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(year);
-        }
+        parcel.writeString(year);
         parcel.writeString(isbnWithIssn);
         parcel.writeString(type);
         parcel.writeString(availability);

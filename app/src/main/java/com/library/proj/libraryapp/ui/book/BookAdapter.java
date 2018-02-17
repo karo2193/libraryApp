@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 
 import com.library.proj.libraryapp.R;
 import com.library.proj.libraryapp.data.model.Book;
-import com.library.proj.libraryapp.data.model.BookAvailability;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +48,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
         holder.titleTv.setText(book.getTitle().trim());
         holder.authorTv.setText(book.getResponsibility().trim());
         holder.yearTv.setText(book.getYear().toString());
-        holder.seeMoreIv.setOnClickListener(v -> onBookClickSubject.onNext(book));
+        holder.containerCl.setOnClickListener(v -> onBookClickSubject.onNext(book));
     }
 
     public PublishSubject<Book> getOnBookClickSubject() {
