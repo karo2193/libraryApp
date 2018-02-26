@@ -27,8 +27,8 @@
 
     <dimen name="search_component_height">112dp</dimen>
 
-    <dimen name="subcategory_item_margin_left">28dp</dimen>
-    <dimen name="subcategory_item_height">840dp</dimen>
+    <dimen name="subcategory_item_margin_left">17dp</dimen>
+    <dimen name="subcategory_item_height">84dp</dimen>
 
     <dimen name="text_extra_large_size">70sp</dimen>
     <dimen name="text_large_size">30sp</dimen>

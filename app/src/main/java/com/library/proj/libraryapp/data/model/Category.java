@@ -34,7 +34,7 @@ public class Category implements Parcelable {
         subcategories = in.createTypedArrayList(Category.CREATOR);
     }
 
-    public static final Creator<Category> CREATOR = new Creator<Category>() {
+    static final Creator<Category> CREATOR = new Creator<Category>() {
         @Override
         public Category createFromParcel(Parcel in) {
             return new Category(in);
@@ -74,7 +74,7 @@ public class Category implements Parcelable {
         return subcategories;
     }
 
-    public void setSubcategories(List<Category> subcategories) {
+    void setSubcategories(List<Category> subcategories) {
         this.subcategories = subcategories;
     }
 
