@@ -46,8 +46,6 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     RecyclerView bookRv;
     @BindView(R.id.book_no_books)
     ConstraintLayout noBooksLayout;
-    @BindView(R.id.book_no_books_iv)
-    ImageView noBooksIv;
 
     private int currentPage = 0;
     private List<Book> allBooks = new ArrayList<>();
@@ -111,9 +109,10 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     public void refreshBooks(List<Book> books) {
         allBooks.addAll(books);
         if(allBooks.isEmpty()) {
-            noBooksIv.setVisibility(VISIBLE);
+            noBooksLayout.setVisibility(VISIBLE);
+            noBooksLayout.bringToFront();
         } else {
-            noBooksIv.setVisibility(GONE);
+            noBooksLayout.setVisibility(GONE);
             if (bookRv.getAdapter() != null) {
                 bookRv.getAdapter().notifyDataSetChanged();
             }
@@ -123,7 +122,7 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     @Override
     public void onBooksError(Throwable throwable) {
         Toast.makeText(this, getResources().getString(R.string.books_error), Toast.LENGTH_LONG).show();
-        noBooksIv.setVisibility(VISIBLE);
+        noBooksLayout.setVisibility(VISIBLE);
         Timber.e(throwable);
     }
 

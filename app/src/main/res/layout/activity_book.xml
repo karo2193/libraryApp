@@ -24,6 +24,7 @@
 
     <include
         android:id="@+id/book_no_books"
-        layout="@layout/book_no_books_layout"/>
+        layout="@layout/book_no_books_layout"
+        android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>
