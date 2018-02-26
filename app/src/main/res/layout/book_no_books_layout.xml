@@ -24,6 +24,7 @@
         style="@style/TextToolbarDefaultStyle"
         android:text="@string/book_no_books"
         android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
         android:textAlignment="center"
         android:layout_marginTop="@dimen/margin_default"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.library.proj.libraryapp.R;
@@ -45,6 +46,8 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     RecyclerView bookRv;
     @BindView(R.id.book_no_books)
     ConstraintLayout noBooksLayout;
+    @BindView(R.id.book_no_books_iv)
+    ImageView noBooksIv;
 
     private int currentPage = 0;
     private List<Book> allBooks = new ArrayList<>();
@@ -108,9 +111,9 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     public void refreshBooks(List<Book> books) {
         allBooks.addAll(books);
         if(allBooks.isEmpty()) {
-            noBooksLayout.setVisibility(VISIBLE);
+            noBooksIv.setVisibility(VISIBLE);
         } else {
-            noBooksLayout.setVisibility(GONE);
+            noBooksIv.setVisibility(GONE);
             if (bookRv.getAdapter() != null) {
                 bookRv.getAdapter().notifyDataSetChanged();
             }
@@ -120,7 +123,7 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     @Override
     public void onBooksError(Throwable throwable) {
         Toast.makeText(this, getResources().getString(R.string.books_error), Toast.LENGTH_LONG).show();
-        noBooksLayout.setVisibility(VISIBLE);
+        noBooksIv.setVisibility(VISIBLE);
         Timber.e(throwable);
     }
 

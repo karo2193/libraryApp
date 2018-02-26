@@ -20,7 +20,7 @@ public class Presenter<ViewType> implements BasePresenter {
 
     }
 
-    public final void onDetachView() {
+    final void onDetachView() {
         view = null;
         if(compositeDisposable != null && !compositeDisposable.isDisposed()) {
             compositeDisposable.dispose();

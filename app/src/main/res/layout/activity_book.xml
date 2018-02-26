@@ -12,11 +12,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/category_lv"/>
 
-    <include
-        android:id="@+id/book_no_books"
-        layout="@layout/book_no_books_layout"
-        android:visibility="gone"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/book_rv"
         android:layout_width="0dp"
@@ -26,5 +21,9 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/book_toolbar"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <include
+        android:id="@+id/book_no_books"
+        layout="@layout/book_no_books_layout"/>
 
 </android.support.constraint.ConstraintLayout>

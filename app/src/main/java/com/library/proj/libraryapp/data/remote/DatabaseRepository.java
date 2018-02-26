@@ -1,11 +1,8 @@
 package com.library.proj.libraryapp.data.remote;
 
-import android.content.Context;
-
 import com.library.proj.libraryapp.data.gateway.DatabaseGateway;
 import com.library.proj.libraryapp.data.model.Book;
 import com.library.proj.libraryapp.data.model.BookRequestData;
-import com.library.proj.libraryapp.data.model.Category;
 import com.library.proj.libraryapp.data.model.CategoryResponse;
 import com.library.proj.libraryapp.data.model.Dictionary;
 
@@ -23,12 +20,10 @@ import io.reactivex.Single;
 public class DatabaseRepository implements DatabaseGateway {
 
     private final ApiService apiService;
-    private final Context context;
 
     @Inject
-    public DatabaseRepository(ApiService apiService, Context context) {
+    public DatabaseRepository(ApiService apiService) {
         this.apiService = apiService;
-        this.context = context;
     }
 
     @Override
