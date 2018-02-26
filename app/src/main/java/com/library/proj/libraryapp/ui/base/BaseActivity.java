@@ -5,6 +5,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.crashlytics.android.Crashlytics;
 import com.library.proj.libraryapp.application.LibraryApplicationComponentInitializer;
 import com.library.proj.libraryapp.di.component.ActivityComponent;
 import com.library.proj.libraryapp.di.component.AppComponent;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Karo2 on 2017-12-30.
@@ -45,6 +47,7 @@ public abstract class BaseActivity<ViewType extends BaseView, P extends Presente
             setContentView(getLayoutRes());
         }
         unbinder = ButterKnife.bind(this);
+        Fabric.with(this, new Crashlytics());
         performFieldInjection(getActivityComponent());
         presenter.onAttachView((ViewType) this);
     }
