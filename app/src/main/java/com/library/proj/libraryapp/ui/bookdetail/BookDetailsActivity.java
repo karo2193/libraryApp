@@ -147,9 +147,9 @@ public class BookDetailsActivity extends BaseActivity<BookDetailsContract.View, 
         } else {
             String categories = "";
             for(Category category : book.getCategories()) {
-                categories = StringUtils.join(category.getName(), "\n");
+                categories = StringUtils.join(category.getName(), ", ");
             }
-            categoryTv.setText(categories.trim());
+            categoryTv.setText(categories.substring(0, categories.lastIndexOf(",")));
         }
     }
 }
