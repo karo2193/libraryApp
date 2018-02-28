@@ -42,6 +42,8 @@ public class BookDetailsActivity extends BaseActivity<BookDetailsContract.View, 
     TextView inventoryNumberTv;
     @BindView(R.id.book_details_main_signature_tv)
     TextView mainSignatureTv;
+    @BindView(R.id.book_details_faculty_signature_tv)
+    TextView facultySignatureTv;
     @BindView(R.id.book_details_year_tv)
     TextView yearTv;
     @BindView(R.id.book_details_volume_tv)
@@ -60,6 +62,8 @@ public class BookDetailsActivity extends BaseActivity<BookDetailsContract.View, 
     LinearLayout inventoryNumberLl;
     @BindView(R.id.book_details_main_signature_ll)
     LinearLayout mainSignatureLl;
+    @BindView(R.id.book_details_faculty_signature_ll)
+    LinearLayout facultySignatureLl;
     @BindView(R.id.book_details_year_ll)
     LinearLayout yearLl;
     @BindView(R.id.book_details_volume_ll)
@@ -118,10 +122,11 @@ public class BookDetailsActivity extends BaseActivity<BookDetailsContract.View, 
     public void fillFields() {
         if (book == null) return;
         fillField(authorTv, authorLl, book.getResponsibility());
-        fillField(titleTv, titleLl, book.getResponsibility());
+        fillField(titleTv, titleLl, book.getTitle());
         fillField(inventoryNumberTv, inventoryNumberLl, book.getIsbnWithIssn());
         fillField(mainSignatureTv, mainSignatureLl, book.getMainSignature());
-        fillField(yearTv, yearLl, book.getYear().toString());
+        fillField(facultySignatureTv, facultySignatureLl, book.getFacultySignature().toString());
+        fillField(yearTv, yearLl, book.getYear());
         fillField(volumeTv, volumeLl, book.getVolume());
         fillField(typeTv, typeLl, book.getType());
         fillField(availabilityTv, availabilityLl, book.getAvailability());
@@ -142,9 +147,9 @@ public class BookDetailsActivity extends BaseActivity<BookDetailsContract.View, 
         } else {
             String categories = "";
             for(Category category : book.getCategories()) {
-                categories = StringUtils.join(category.getName(), "\n");
+                categories = StringUtils.join(category.getName(), ", ");
             }
-            categoryTv.setText(categories.trim());
+            categoryTv.setText(categories.substring(0, categories.lastIndexOf(",")));
         }
     }
 }

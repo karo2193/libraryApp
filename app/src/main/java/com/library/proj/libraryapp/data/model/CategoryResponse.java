@@ -11,10 +11,10 @@ import java.util.List;
 
 public class CategoryResponse {
 
-    @SerializedName("kategoria")
+    @SerializedName("main_category")
     @Expose
     private Category category;
-    @SerializedName("podkategorie")
+    @SerializedName("subcategories")
     @Expose
     private List<Category> subcategories;
 

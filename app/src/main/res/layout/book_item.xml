@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
+    android:id="@+id/book_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <ImageView
-        android:id="@+id/book_availability_iv"
-        android:layout_width="@dimen/image_default_size"
-        android:layout_height="@dimen/image_default_size"
-        android:layout_margin="@dimen/margin_default"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/book_title_tv"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CategoryLayoutStyle"
+    android:layout_height="@dimen/book_item_height">
 
     <TextView
         android:id="@+id/book_title_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/book_availability_iv"
+        style="@style/BookTextStyle"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/book_author_tv"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/book_see_more_iv"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/book_see_more_iv"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/book_author_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/book_availability_iv"
+        style="@style/BookTextStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_year_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/book_see_more_iv"
+        app:layout_constraintTop_toBottomOf="@id/book_title_tv"/>
+
+    <TextView
+        android:id="@+id/book_year_tv"
+        style="@style/BookTextStyle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_title_tv"
-        app:layout_constraintRight_toLeftOf="@id/book_see_more_iv"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/book_see_more_iv"
+        app:layout_constraintTop_toBottomOf="@id/book_author_tv"/>
 
     <ImageView
         android:id="@+id/book_see_more_iv"
-        android:layout_width="@dimen/image_default_size"
-        android:layout_height="@dimen/image_default_size"
+        style="@style/IconToolbarStyle"
         android:src="@drawable/ic_arrow_right"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/book_title_tv"
         app:layout_constraintRight_toRightOf="parent"/>
 

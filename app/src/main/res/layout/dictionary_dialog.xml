@@ -10,7 +10,8 @@
         android:id="@+id/dictionary_title_tv"
         style="@style/DictionaryDialogTextStyle"
         android:background="@color/colorPrimaryDark"
-        android:text="@string/search_availability"/>
+        android:text="@string/search_availability"
+        android:textColor="@color/colorPrimaryLight"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/dictionary_rv"

@@ -13,7 +13,8 @@
         <ImageView
             android:id="@+id/category_back_iv"
             style="@style/IconToolbarStyle"
-            android:src="@drawable/ic_arrow_back"/>
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
             style="@style/TextToolbarDefaultStyle"
@@ -26,6 +27,7 @@
             android:id="@+id/category_clear_iv"
             style="@style/IconToolbarStyle"
             android:layout_marginEnd="@dimen/margin_default"
-            android:src="@drawable/ic_delete"/>
+            android:src="@drawable/ic_delete"
+            app:layout_constraintRight_toRightOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.Toolbar>

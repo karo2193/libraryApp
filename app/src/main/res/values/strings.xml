@@ -2,9 +2,11 @@
     <string name="app_name">LibraryApp</string>
 
     <string name="books_error">Niestety pobranie książek nie powiodło się</string>
+    <string name="book_no_books">Brak książek</string>
     <string name="book_details_error">Przepraszamy, coś poszło nie tak</string>
-    <string name="book_details_toolbar">Znalezione książki</string>
+    <string name="book_details_toolbar">Szczegóły książki</string>
     <string name="book_details_categories">Kategorie książki</string>
+    <string name="book_toolbar">Wyniki wyszukiwania</string>
 
     <string name="categories_error">Niestety pobranie kategorii nie powiodło się</string>
     <string name="categories_toolbar">Kategorie</string>
@@ -15,7 +17,7 @@
     <string name="search_find_book">Znajdź książkę</string>
     <string name="search_title">Tytuł</string>
     <string name="search_author">Autor</string>
-    <string name="search_inventory_number">Nr inwentarza</string>
+    <string name="search_inventory_number">ISBN/ISSN</string>
     <string name="search_main_signature">Sygnatura biblioteki głównej</string>
     <string name="search_signature">Sygnatura MS</string>
     <string name="search_year">Rok wydania</string>
@@ -26,4 +28,5 @@
     <string name="search_category_selected">Zaznaczone kategorie: %d</string>
     <string name="search_clear">Czyść</string>
     <string name="search_search">Szukaj</string>
+    <string name="search_wrong_year">Wprowadź prawidłowy rok</string>
 </resources>

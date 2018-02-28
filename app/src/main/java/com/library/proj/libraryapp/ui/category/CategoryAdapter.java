@@ -121,7 +121,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
 
     private void setupCategoryViewHolder(Category category, ExpandableListView viewGroup,
                                          int position, CategoryViewHolder viewHolder) {
-        viewHolder.nameTv.setText(category.getName().toLowerCase());
+        viewHolder.nameTv.setText(category.getName());
         viewHolder.itemCb.setChecked(category.isChecked());
         setupArrowIv(category, viewGroup, position, viewHolder);
         viewHolder.itemCl.setOnClickListener(v -> onCategoryClick.onNext(category));

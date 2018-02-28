@@ -12,31 +12,31 @@ import com.google.gson.annotations.SerializedName;
 
 public class BookRequestFilters implements Parcelable {
 
-    @SerializedName("syg_ms__contains")
+    @SerializedName("signature_ms__contains")
     @Expose
     private String facultySignature;
-    @SerializedName("syg_bg__contains")
+    @SerializedName("signature_bg__contains")
     @Expose
     private String mainSignature;
-    @SerializedName("ozn_opdow__contains")
+    @SerializedName("responsibility__contains")
     @Expose
     private String responsibility;
-    @SerializedName("tytul__contains")
+    @SerializedName("title__contains")
     @Expose
     private String title;
-    @SerializedName("tom__contains")
+    @SerializedName("volume__contains")
     @Expose
     private String volume;
-    @SerializedName("rok__contains")
+    @SerializedName("year__contains")
     @Expose
-    private Integer year;
+    private String year;
     @SerializedName("isbn_issn__contains")
     @Expose
     private String isbnWithIssn;
-    @SerializedName("typ__contains")
+    @SerializedName("type__contains")
     @Expose
     private String type;
-    @SerializedName("dostepnosc__contains")
+    @SerializedName("availability__contains")
     @Expose
     private String availability;
 
@@ -50,11 +50,7 @@ public class BookRequestFilters implements Parcelable {
         responsibility = in.readString();
         title = in.readString();
         volume = in.readString();
-        if (in.readByte() == 0) {
-            year = null;
-        } else {
-            year = in.readInt();
-        }
+        year = in.readString();
         isbnWithIssn = in.readString();
         type = in.readString();
         availability = in.readString();
@@ -112,11 +108,11 @@ public class BookRequestFilters implements Parcelable {
         this.volume = volume;
     }
 
-    public Integer getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
@@ -156,12 +152,7 @@ public class BookRequestFilters implements Parcelable {
         parcel.writeString(responsibility);
         parcel.writeString(title);
         parcel.writeString(volume);
-        if (year == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(year);
-        }
+        parcel.writeString(year);
         parcel.writeString(isbnWithIssn);
         parcel.writeString(type);
         parcel.writeString(availability);

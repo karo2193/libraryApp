@@ -15,27 +15,16 @@ import java.util.List;
 
 public class Category implements Parcelable {
 
-    @SerializedName("id_kategorii")
+    @SerializedName("category_id")
     @Expose
     private String categoryId;
-    @SerializedName("kategoria")
+    @SerializedName("category_name")
     @Expose
     private String name;
 
     private boolean isChecked = false;
     private boolean isExpanded;
     private List<Category> subcategories;
-
-    public Category(String categoryId, String name, List<Category> subcategories) {
-        this.categoryId = categoryId;
-        this.name = name;
-        this.subcategories = subcategories;
-    }
-
-    public Category(String name, List<Category> subcategories) {
-        this.name = name;
-        this.subcategories = subcategories;
-    }
 
     protected Category(Parcel in) {
         categoryId = in.readString();
@@ -56,6 +45,10 @@ public class Category implements Parcelable {
             return new Category[size];
         }
     };
+
+    public String getCategoryId() {
+        return categoryId;
+    }
 
     public String getName() {
         return name;

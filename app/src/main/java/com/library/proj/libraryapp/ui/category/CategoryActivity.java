@@ -29,7 +29,7 @@ public class CategoryActivity extends BaseActivity<CategoryContract.View, Catego
     @BindView(R.id.category_lv)
     ExpandableListView categoryLv;
 
-    private  ArrayList<Category> categories = new ArrayList<>();
+    private ArrayList<Category> categories = new ArrayList<>();
     private CategoryAdapter adapter;
 
     @OnClick(R.id.category_back_iv)
@@ -40,7 +40,7 @@ public class CategoryActivity extends BaseActivity<CategoryContract.View, Catego
     @OnClick(R.id.category_clear_iv)
     public void onClearClick() {
         resetCategoriesChecked();
-        if(adapter != null) {
+        if (adapter != null) {
             adapter.notifyDataSetChanged();
         }
     }
@@ -95,8 +95,17 @@ public class CategoryActivity extends BaseActivity<CategoryContract.View, Catego
     }
 
     private void setupOnCategoryCheckBoxClick(CategoryAdapter adapter) {
-        adapter.getOnCategoryCheckBoxClick().subscribe(category
-                -> category.setChecked(!category.isChecked()));
+        adapter.getOnCategoryCheckBoxClick().subscribe(category -> {
+                    category.setChecked(!category.isChecked());
+                    if (category.isChecked() && category.getSubcategories() != null
+                            && !category.getSubcategories().isEmpty()) {
+                        for (Category subcategory : category.getSubcategories()) {
+                            subcategory.setChecked(true);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+        );
     }
 
     private void setupOnCategoryClick(CategoryAdapter adapter) {
@@ -111,14 +120,14 @@ public class CategoryActivity extends BaseActivity<CategoryContract.View, Catego
     }
 
     private void resetCategoriesChecked() {
-        for(Category category: categories) {
+        for (Category category : categories) {
             category.setChecked(false);
             resetSubcategoriesChecked(category);
         }
     }
 
     private void resetSubcategoriesChecked(Category category) {
-        for(Category subcategory: category.getSubcategories()) {
+        for (Category subcategory : category.getSubcategories()) {
             subcategory.setChecked(false);
         }
     }

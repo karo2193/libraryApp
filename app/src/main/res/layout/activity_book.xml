@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/MainLayoutStyle"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/book_toolbar"
+        layout="@layout/book_toolbar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/category_lv"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/book_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</LinearLayout>
+    <include
+        android:id="@+id/book_no_books"
+        layout="@layout/book_no_books_layout"
+        android:visibility="gone"/>
+
+</android.support.constraint.ConstraintLayout>

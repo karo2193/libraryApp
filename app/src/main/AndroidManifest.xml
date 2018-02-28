@@ -15,6 +15,7 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:noHistory="true"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -24,16 +25,23 @@
         </activity>
         <activity
             android:name=".ui.search.SearchActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.category.CategoryActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.book.BookActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.bookdetail.BookDetailsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
-    </application>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="177582fe94b45ea621d6997169b204840fdaac40"/>
+    </application>
 </manifest>

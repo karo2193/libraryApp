@@ -22,7 +22,7 @@ public class BookPresenter extends Presenter<BookContract.View> implements BookC
     public void getBooks(BookRequestData bookRequestData) {
         Disposable disposable = useCaseFactory.getBooksUseCase(bookRequestData)
                 .execute()
-                .subscribe(view::setupBooksRv, view::onBooksError);
+                .subscribe(view::refreshBooks, view::onBooksError);
         compositeDisposable.add(disposable);
     }
 }

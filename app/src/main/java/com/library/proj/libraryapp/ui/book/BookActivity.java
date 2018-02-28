@@ -2,8 +2,13 @@ package com.library.proj.libraryapp.ui.book;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.library.proj.libraryapp.R;
@@ -23,7 +28,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import timber.log.Timber;
+
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static com.library.proj.libraryapp.ui.search.SearchActivity.BOOK_CATEGORIES_EXTRA;
 
 public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
         implements BookContract.View {
@@ -33,8 +44,17 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
 
     @BindView(R.id.book_rv)
     RecyclerView bookRv;
+    @BindView(R.id.book_no_books)
+    ConstraintLayout noBooksLayout;
 
     private int currentPage = 0;
+    private List<Book> allBooks = new ArrayList<>();
+    private BookRequestData bookRequestData = new BookRequestData();
+
+    @OnClick(R.id.book_back_iv)
+    public void onBackClick() {
+        onBackPressed();
+    }
 
     @Override
     protected int getLayoutRes() {
@@ -56,37 +76,27 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
         ButterKnife.bind(this);
+        setupBooksRv();
         createBookRequestData();
     }
 
     @Override
     public void createBookRequestData() {
-        BookRequestData bookRequestData = new BookRequestData();
         bookRequestData.getQuery().setFilters(getFilters(getIntent()));
-        bookRequestData.getQuery().setPagination(getPagination());
-        bookRequestData.getQuery().setCategories(new ArrayList<Category>());
+        bookRequestData.getQuery().setCategories(getCategoriesIds(getIntent()));
+        setupPagination();
         getPresenter().getBooks(bookRequestData);
     }
 
-    private BookRequestPagination getPagination() {
-        BookRequestPagination bookRequestPagination = new BookRequestPagination();
-        bookRequestPagination.setLimit(API_BOOKS_LIMIT);
-        bookRequestPagination.setOffset(API_BOOKS_LIMIT * currentPage);
-        return bookRequestPagination;
-    }
-
-    private BookRequestFilters getFilters(Intent intent) {
-        BookRequestFilters bookRequestFilters = new BookRequestFilters();
-        if (intent != null) {
-            bookRequestFilters = intent.getParcelableExtra(SearchActivity.BOOK_FILTERS_EXTRA);
-        }
-        return bookRequestFilters;
-    }
-
     @Override
-    public void setupBooksRv(List<Book> books) {
+    public void setupBooksRv() {
+        allBooks.clear();
         bookRv.setLayoutManager(new LinearLayoutManager(this));
-        BookAdapter bookAdapter = new BookAdapter(books);
+        BookAdapter bookAdapter = new BookAdapter(allBooks);
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(getResources().getDrawable(R.drawable.divider));
+        bookRv.addItemDecoration(divider);
+        bookRv.addOnScrollListener(getOnScrollListener());
         bookRv.setAdapter(bookAdapter);
         bookAdapter.getOnBookClickSubject().subscribe(book -> {
             Intent intent = new Intent(this, BookDetailsActivity.class);
@@ -96,8 +106,68 @@ public class BookActivity extends BaseActivity<BookContract.View, BookPresenter>
     }
 
     @Override
+    public void refreshBooks(List<Book> books) {
+        allBooks.addAll(books);
+        if(allBooks.isEmpty()) {
+            noBooksLayout.setVisibility(VISIBLE);
+            noBooksLayout.bringToFront();
+        } else {
+            noBooksLayout.setVisibility(GONE);
+            if (bookRv.getAdapter() != null) {
+                bookRv.getAdapter().notifyDataSetChanged();
+            }
+        }
+    }
+
+    @Override
     public void onBooksError(Throwable throwable) {
         Toast.makeText(this, getResources().getString(R.string.books_error), Toast.LENGTH_LONG).show();
+        noBooksLayout.setVisibility(VISIBLE);
         Timber.e(throwable);
+    }
+
+    private RecyclerView.OnScrollListener getOnScrollListener() {
+         return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (isScrollable(scrollState, manager)) {
+                    currentPage++;
+                    setupPagination();
+                    getPresenter().getBooks(bookRequestData);
+                }
+            }
+
+            private boolean isScrollable(int scrollState, LinearLayoutManager layoutManager) {
+                return isEndOfScrollView(layoutManager) && scrollState == SCROLL_STATE_IDLE;
+            }
+
+            private boolean isEndOfScrollView(LinearLayoutManager layoutManager) {
+                return layoutManager.findLastVisibleItemPosition() == layoutManager.getItemCount() - 1;
+            }
+        };
+    }
+
+    private void setupPagination() {
+        BookRequestPagination bookRequestPagination = new BookRequestPagination();
+        bookRequestPagination.setLimit(API_BOOKS_LIMIT);
+        bookRequestPagination.setOffset(API_BOOKS_LIMIT * currentPage);
+        bookRequestData.getQuery().setPagination(bookRequestPagination);
+    }
+
+    private BookRequestFilters getFilters(Intent intent) {
+        if (intent == null) {
+            return new BookRequestFilters();
+        } else {
+            return intent.getParcelableExtra(SearchActivity.BOOK_FILTERS_EXTRA);
+        }
+    }
+
+    private String[] getCategoriesIds(Intent intent) {
+        if(intent == null) {
+            return new String[0];
+        } else {
+            return intent.getStringArrayExtra(BOOK_CATEGORIES_EXTRA);
+        }
     }
 }

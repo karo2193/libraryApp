@@ -2,7 +2,7 @@
 <android.support.v7.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/search_toolbar"
+    android:id="@+id/category_toolbar"
     style="@style/ToolbarStyle"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -11,23 +11,16 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/search_refresh_iv"
+            android:id="@+id/book_back_iv"
             style="@style/IconToolbarStyle"
-            android:src="@drawable/ic_refresh"
+            android:src="@drawable/ic_arrow_back"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
             style="@style/TextToolbarDefaultStyle"
-            android:text="@string/search_find_book"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/search_refresh_iv"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageView
-            android:id="@+id/search_delete_iv"
-            style="@style/IconToolbarStyle"
-            android:layout_marginEnd="@dimen/margin_default"
-            android:src="@drawable/ic_delete"
-            app:layout_constraintRight_toRightOf="parent"/>
+            android:text="@string/book_toolbar"
+            app:layout_constraintLeft_toRightOf="@id/book_back_iv"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.Toolbar>

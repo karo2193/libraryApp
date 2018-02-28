@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 
 import com.library.proj.libraryapp.R;
 import com.library.proj.libraryapp.data.model.Book;
-import com.library.proj.libraryapp.data.model.BookAvailability;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,28 +45,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookViewHolder> {
     }
 
     private void onBind(BookViewHolder holder, Book book) {
-        holder.titleTv.setText(book.getTitle());
-        holder.authorTv.setText(book.getResponsibility());
-        setupBookAvailability(holder, book);
-        holder.seeMoreIv.setOnClickListener(v -> onBookClickSubject.onNext(book));
-    }
-
-    private void setupBookAvailability(BookViewHolder holder, Book book) {
-        if (StringUtils.isBlank(book.getAvailability()))
-            return;
-        switch (BookAvailability.getType(book.getAvailability())) {
-            case AVAILABLE:
-                holder.availabilityIv.setBackgroundResource(R.drawable.ic_dot_green_24dp);
-                break;
-            case BORROW:
-                holder.availabilityIv.setBackgroundResource(R.drawable.ic_dot_red_24dp);
-                break;
-            case READING_ROOM:
-                holder.availabilityIv.setBackgroundResource(R.drawable.ic_dot_yellow_24dp);
-                break;
-            default:
-                break;
-        }
+        holder.titleTv.setText(book.getTitle().trim());
+        holder.authorTv.setText(book.getResponsibility().trim());
+        holder.yearTv.setText(book.getYear().toString());
+        holder.containerCl.setOnClickListener(v -> onBookClickSubject.onNext(book));
     }
 
     public PublishSubject<Book> getOnBookClickSubject() {
