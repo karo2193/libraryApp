@@ -16,10 +16,10 @@
     <string name="search_no_directory_items">Brak elementów do wyboru</string>
     <string name="search_find_book">Znajdź książkę</string>
     <string name="search_title">Tytuł</string>
-    <string name="search_author">Autor</string>
+    <string name="search_author">Autorzy</string>
     <string name="search_inventory_number">ISBN/ISSN</string>
     <string name="search_main_signature">Sygnatura biblioteki głównej</string>
-    <string name="search_signature">Sygnatura MS</string>
+    <string name="search_signature">Sygnatura biblioteki MS</string>
     <string name="search_year">Rok wydania</string>
     <string name="search_volume">Tom</string>
     <string name="search_type">Typ pozycji</string>

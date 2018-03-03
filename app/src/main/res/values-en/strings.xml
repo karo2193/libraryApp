@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="app_name">LibraryApp</string>
+
+    <string name="book_details_categories">Books categories</string>
+    <string name="book_details_error">Sorry, something went wrong</string>
+    <string name="book_details_toolbar">Book details</string>
+    <string name="book_no_books">No books</string>
+    <string name="book_toolbar">Searching result</string>
+
+    <string name="books_error">Books download failed</string>
+
+    <string name="categories_error">Categories download failed</string>
+    <string name="categories_toolbar">Categories</string>
+
+    <string name="dictionary_error">Book types and availabilities download failed</string>
+
+    <string name="search_author">Authors</string>
+    <string name="search_availability">Availability</string>
+    <string name="search_category">Categories</string>
+    <string name="search_category_selected">Selected categories: %d</string>
+    <string name="search_clear">Clear</string>
+    <string name="search_find_book">Find book</string>
+    <string name="search_inventory_number">Inventory number</string>
+    <string name="search_main_signature">Main library signature</string>
+    <string name="search_no_directory_items">No elements</string>
+    <string name="search_search">Search</string>
+    <string name="search_signature">Faculty signature</string>
+    <string name="search_title">Title</string>
+    <string name="search_type">Book type</string>
+    <string name="search_volume">Volume</string>
+    <string name="search_wrong_year">Please, typed correct year</string>
+    <string name="search_year">Publication date</string>
+</resources>

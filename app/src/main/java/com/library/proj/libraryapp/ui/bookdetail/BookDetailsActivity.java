@@ -147,7 +147,7 @@ public class BookDetailsActivity extends BaseActivity<BookDetailsContract.View, 
         } else {
             String categories = "";
             for(Category category : book.getCategories()) {
-                categories = StringUtils.join(category.getName(), ", ");
+                categories = StringUtils.join(categories, category.getName(), ", ");
             }
             categoryTv.setText(categories.substring(0, categories.lastIndexOf(",")));
         }

@@ -21,7 +21,7 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/search_author"
         style="@style/SearchInputLayoutStyle"
-        app:layout_constraintBottom_toTopOf="@id/search_inventory_number"
+        app:layout_constraintBottom_toTopOf="@id/search_year"
         app:layout_constraintTop_toBottomOf="@id/search_title">
 
         <android.support.design.widget.TextInputEditText
@@ -33,10 +33,37 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/search_year"
+        style="@style/SearchInputLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/search_volume"
+        app:layout_constraintTop_toBottomOf="@id/search_author">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/search_year_et"
+            style="@style/SearchEditTextStyle"
+            android:hint="@string/search_year"
+            android:inputType="number"
+            android:maxLength="4"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/search_volume"
+        style="@style/SearchInputLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/search_inventory_number"
+        app:layout_constraintTop_toBottomOf="@id/search_year">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/search_volume_et"
+            style="@style/SearchEditTextStyle"
+            android:hint="@string/search_volume"
+            android:maxLength="2"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:id="@+id/search_inventory_number"
         style="@style/SearchInputLayoutStyle"
         app:layout_constraintBottom_toTopOf="@id/search_signature"
-        app:layout_constraintTop_toBottomOf="@id/search_author">
+        app:layout_constraintTop_toBottomOf="@id/search_volume">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/search_inventory_number_et"
@@ -55,13 +82,14 @@
             android:id="@+id/search_signature_et"
             style="@style/SearchEditTextStyle"
             android:hint="@string/search_signature"
+            android:inputType="number"
             android:maxLength="10"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/search_main_signature"
         style="@style/SearchInputLayoutStyle"
-        app:layout_constraintBottom_toTopOf="@id/search_year"
+        app:layout_constraintBottom_toTopOf="@id/search_availability_btn"
         app:layout_constraintTop_toBottomOf="@id/search_signature">
 
         <android.support.design.widget.TextInputEditText
@@ -71,53 +99,26 @@
             android:maxLength="10"/>
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/search_year"
-        style="@style/SearchInputLayoutStyle"
-        app:layout_constraintBottom_toTopOf="@id/search_volume"
-        app:layout_constraintTop_toBottomOf="@id/search_main_signature">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/search_year_et"
-            style="@style/SearchEditTextStyle"
-            android:hint="@string/search_year"
-            android:inputType="number"
-            android:maxLength="4"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/search_volume"
-        style="@style/SearchInputLayoutStyle"
+    <Button
+        android:id="@+id/search_availability_btn"
+        style="@style/SearchButtonStyle"
+        android:text="@string/search_availability"
         app:layout_constraintBottom_toTopOf="@id/search_type_btn"
-        app:layout_constraintTop_toBottomOf="@id/search_year">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/search_volume_et"
-            style="@style/SearchEditTextStyle"
-            android:hint="@string/search_volume"
-            android:maxLength="2"/>
-    </android.support.design.widget.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@id/search_main_signature"/>
 
     <Button
         android:id="@+id/search_type_btn"
         style="@style/SearchButtonStyle"
         android:text="@string/search_type"
-        app:layout_constraintBottom_toTopOf="@id/search_availability_btn"
-        app:layout_constraintTop_toBottomOf="@id/search_volume"/>
-
-    <Button
-        android:id="@+id/search_availability_btn"
-        style="@style/SearchButtonStyle"
-        android:text="@string/search_availability"
         app:layout_constraintBottom_toTopOf="@id/search_category_btn"
-        app:layout_constraintTop_toBottomOf="@id/search_type_btn"/>
+        app:layout_constraintTop_toBottomOf="@id/search_availability_btn"/>
 
     <Button
         android:id="@+id/search_category_btn"
         style="@style/SearchButtonStyle"
         android:text="@string/search_category"
         app:layout_constraintBottom_toTopOf="@id/search_empty_view"
-        app:layout_constraintTop_toBottomOf="@id/search_availability_btn"/>
+        app:layout_constraintTop_toBottomOf="@id/search_type_btn"/>
 
     <View
         android:id="@+id/search_empty_view"

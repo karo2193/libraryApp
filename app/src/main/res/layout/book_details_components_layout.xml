@@ -26,7 +26,7 @@
     <LinearLayout
         android:id="@+id/book_details_author_ll"
         style="@style/BookDetailsLinearLayoutStyle"
-        app:layout_constraintBottom_toTopOf="@id/book_details_inventory_number_ll"
+        app:layout_constraintBottom_toTopOf="@id/book_details_year_ll"
         app:layout_constraintTop_toBottomOf="@id/book_details_title_ll">
 
         <TextView
@@ -43,67 +43,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/book_details_inventory_number_ll"
-        style="@style/BookDetailsLinearLayoutStyle"
-        app:layout_constraintBottom_toTopOf="@id/book_details_main_signature_ll"
-        app:layout_constraintTop_toBottomOf="@id/book_details_author_ll">
-
-        <TextView
-            style="@style/BookDetailsTitleTextStyle"
-            android:text="@string/search_inventory_number"/>
-
-        <TextView
-            android:id="@+id/book_details_inventory_number_tv"
-            style="@style/BookDetailsTextStyle"
-            android:layout_marginBottom="@dimen/margin_default"/>
-
-        <include
-            layout="@layout/divider_layout"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/book_details_main_signature_ll"
-        style="@style/BookDetailsLinearLayoutStyle"
-        app:layout_constraintBottom_toTopOf="@id/book_details_faculty_signature_ll"
-        app:layout_constraintTop_toBottomOf="@id/book_details_inventory_number_ll">
-
-        <TextView
-            style="@style/BookDetailsTitleTextStyle"
-            android:text="@string/search_main_signature"/>
-
-        <TextView
-            android:id="@+id/book_details_main_signature_tv"
-            style="@style/BookDetailsTextStyle"
-            android:layout_marginBottom="@dimen/margin_default"/>
-
-        <include
-            layout="@layout/divider_layout"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/book_details_faculty_signature_ll"
-        style="@style/BookDetailsLinearLayoutStyle"
-        app:layout_constraintBottom_toTopOf="@id/book_details_year_ll"
-        app:layout_constraintTop_toBottomOf="@id/book_details_main_signature_ll">
-
-        <TextView
-            style="@style/BookDetailsTitleTextStyle"
-            android:text="@string/search_signature"/>
-
-        <TextView
-            android:id="@+id/book_details_faculty_signature_tv"
-            style="@style/BookDetailsTextStyle"
-            android:layout_marginBottom="@dimen/margin_default"/>
-
-        <include
-            layout="@layout/divider_layout"/>
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/book_details_year_ll"
         style="@style/BookDetailsLinearLayoutStyle"
         app:layout_constraintBottom_toTopOf="@id/book_details_volume_ll"
-        app:layout_constraintTop_toBottomOf="@id/book_details_faculty_signature_ll">
+        app:layout_constraintTop_toBottomOf="@id/book_details_author_ll">
 
         <TextView
             style="@style/BookDetailsTitleTextStyle"
@@ -121,7 +64,7 @@
     <LinearLayout
         android:id="@+id/book_details_volume_ll"
         style="@style/BookDetailsLinearLayoutStyle"
-        app:layout_constraintBottom_toTopOf="@id/book_details_type_ll"
+        app:layout_constraintBottom_toTopOf="@id/book_details_availability_ll"
         app:layout_constraintTop_toBottomOf="@id/book_details_year_ll">
 
         <TextView
@@ -138,29 +81,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/book_details_type_ll"
-        style="@style/BookDetailsLinearLayoutStyle"
-        app:layout_constraintBottom_toTopOf="@id/book_details_availability_ll"
-        app:layout_constraintTop_toBottomOf="@id/book_details_volume_ll">
-
-        <TextView
-            style="@style/BookDetailsTitleTextStyle"
-            android:text="@string/search_type"/>
-
-        <TextView
-            android:id="@+id/book_details_type_tv"
-            style="@style/BookDetailsTextStyle"
-            android:layout_marginBottom="@dimen/margin_default"/>
-
-        <include
-            layout="@layout/divider_layout"/>
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/book_details_availability_ll"
         style="@style/BookDetailsLinearLayoutStyle"
-        app:layout_constraintBottom_toTopOf="@id/book_details_category_ll"
-        app:layout_constraintTop_toBottomOf="@id/book_details_type_ll">
+        app:layout_constraintBottom_toTopOf="@id/book_details_type_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_volume_ll">
 
         <TextView
             style="@style/BookDetailsTitleTextStyle"
@@ -176,10 +100,86 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/book_details_type_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_inventory_number_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_availability_ll">
+
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_type"/>
+
+        <TextView
+            android:id="@+id/book_details_type_tv"
+            style="@style/BookDetailsTextStyle"
+            android:layout_marginBottom="@dimen/margin_default"/>
+
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/book_details_inventory_number_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_faculty_signature_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_type_ll">
+
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_inventory_number"/>
+
+        <TextView
+            android:id="@+id/book_details_inventory_number_tv"
+            style="@style/BookDetailsTextStyle"
+            android:layout_marginBottom="@dimen/margin_default"/>
+
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/book_details_faculty_signature_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_main_signature_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_inventory_number_ll">
+
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_signature"/>
+
+        <TextView
+            android:id="@+id/book_details_faculty_signature_tv"
+            style="@style/BookDetailsTextStyle"
+            android:layout_marginBottom="@dimen/margin_default"/>
+
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/book_details_main_signature_ll"
+        style="@style/BookDetailsLinearLayoutStyle"
+        app:layout_constraintBottom_toTopOf="@id/book_details_category_ll"
+        app:layout_constraintTop_toBottomOf="@id/book_details_faculty_signature_ll">
+
+        <TextView
+            style="@style/BookDetailsTitleTextStyle"
+            android:text="@string/search_main_signature"/>
+
+        <TextView
+            android:id="@+id/book_details_main_signature_tv"
+            style="@style/BookDetailsTextStyle"
+            android:layout_marginBottom="@dimen/margin_default"/>
+
+        <include
+            layout="@layout/divider_layout"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/book_details_category_ll"
         style="@style/BookDetailsLinearLayoutStyle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_details_availability_ll">
+        app:layout_constraintTop_toBottomOf="@id/book_details_main_signature_ll">
 
         <TextView
             style="@style/BookDetailsTitleTextStyle"
