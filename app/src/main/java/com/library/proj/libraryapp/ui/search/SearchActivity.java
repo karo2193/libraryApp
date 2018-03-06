@@ -214,6 +214,7 @@ public class SearchActivity extends BaseActivity<SearchContract.View, SearchPres
     }
 
     private void clearCategories() {
+        selectedCategoriesIds.clear();
         for(Category category : categories) {
             category.setChecked(false);
             category.setExpanded(false);
